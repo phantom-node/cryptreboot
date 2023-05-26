@@ -1,0 +1,7 @@
+require:
+- rubocop-rake
+- rubocop-rspec
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  SafeAutoCorrect: true
