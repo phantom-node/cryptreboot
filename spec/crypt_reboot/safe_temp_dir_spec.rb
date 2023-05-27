@@ -23,11 +23,10 @@ module CryptReboot
       dir
     end
 
-
     it 'allows to create a file in temp dir' do
       tempdir.call do |dir|
         file_path = File.join(dir, 'test.txt')
-        File.open(file_path, 'w') {}
+        File.open(file_path, 'w') { 0 }
         expect(File).to exist(file_path)
       end
     end
