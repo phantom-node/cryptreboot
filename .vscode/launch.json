@@ -8,7 +8,7 @@
       "type": "rdbg",
       "name": "Debug specs",
       "request": "launch",
-      "command": "rake",
+      "command": "rspec",
       "script": "spec",
       "args": [],
       "askParameters": false
