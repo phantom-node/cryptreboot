@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = 'Linux utility for automatic and secure unlocking of encrypted disks on reboot'
   spec.homepage = 'https://phantomno.de/cryptreboot'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 2.7.0'
+  spec.required_ruby_version = '>= 2.7.0' # default version shipped with Ubuntu 20.04.5 LTS
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/phantom-node/cryptreboot'
