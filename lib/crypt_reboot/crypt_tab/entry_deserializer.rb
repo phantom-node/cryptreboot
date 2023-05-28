@@ -1,0 +1,39 @@
+# frozen_string_literal: true
+
+module CryptReboot
+  module CryptTab
+    # Deserialize crypttab line into value object
+    class EntryDeserializer
+      def call(line)
+        target, source, key_file, raw_floptions = line.split
+        floptions = raw_floptions.split(',')
+        flags = extract_flags(floptions)
+        options = extract_options(floptions)
+        entry_class.new(target: target, source: source, key_file: key_file, options: options, flags: flags)
+      end
+
+      private
+
+      def extract_flags(floptions)
+        floptions.reject do |floption|
+          floption.include?('=')
+        end
+      end
+
+      def extract_options(floptions)
+        options = floptions.select do |floption|
+          floption.include?('=')
+        end
+        options.to_h do |option|
+          option.split('=')
+        end
+      end
+
+      attr_reader :entry_class
+
+      def initialize(entry_class: Entry)
+        @entry_class = entry_class
+      end
+    end
+  end
+end
