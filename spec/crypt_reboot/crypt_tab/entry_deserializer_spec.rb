@@ -16,11 +16,11 @@ module CryptReboot
                     source: 'UUID=946d9327-0de2-4d7b-adba-28a079131b4c',
                     key_file: '/dev/urandom',
                     options: {
-                      'offset' => '1024',
-                      'cipher' => 'aes-xts-plain64',
-                      'size' => '512'
+                      offset: 1024,
+                      cipher: 'aes-xts-plain64',
+                      size: 512
                     },
-                    flags: %w[swap plain]
+                    flags: %i[swap plain]
                   })
       end
 

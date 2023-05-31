@@ -17,7 +17,7 @@ module CryptReboot
       def extract_flags(floptions)
         floptions.reject do |floption|
           floption.include?('=')
-        end
+        end.map(&:to_sym)
       end
 
       def extract_options(floptions)
@@ -25,8 +25,13 @@ module CryptReboot
           floption.include?('=')
         end
         options.to_h do |option|
-          option.split('=')
+          parse_option(option)
         end
+      end
+
+      def parse_option(option)
+        name, value = option.split('=')
+        [name.to_sym, value.to_i.to_s == value ? value.to_i : value]
       end
 
       attr_reader :entry_class
