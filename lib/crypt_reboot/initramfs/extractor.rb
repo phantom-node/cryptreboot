@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'tmpdir'
-require 'tty-command'
 
 module CryptReboot
   module Initramfs
@@ -20,9 +19,7 @@ module CryptReboot
 
       def initialize(tool: '/usr/bin/unmkinitramfs',
                      tmp_maker: Dir.method(:mktmpdir),
-                     verbose: false,
-                     cmd: TTY::Command.new(printer: verbose ? :pretty : :null),
-                     runner: cmd.method(:run))
+                     runner: Runner.new)
         @tool = tool
         @tmp_maker = tmp_maker
         @runner = runner
