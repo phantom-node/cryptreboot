@@ -14,7 +14,7 @@ module CryptReboot
 
     attr_reader :crypttab_path, :extractor, :loader
 
-    def initialize(crypttab_path = File.join('main', 'cryptroot', 'crypttab'),
+    def initialize(crypttab_path = 'main/cryptroot/crypttab'),
                    extractor: Initramfs::Extractor.new,
                    loader: CryptTab::Loader.new)
       @crypttab_path = crypttab_path
