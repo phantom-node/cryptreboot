@@ -4,10 +4,10 @@ module CryptReboot
   # Mount tmpfs at the given mount point, yield and unmount
   class TmpfsMounter
     def call(dir)
-      runner.call('sudo', '--', 'mount', '-t', 'tmpfs', '-o', 'mode=700', 'none', dir)
+      runner.call('mount', '-t', 'tmpfs', '-o', 'mode=700', 'none', dir)
       yield
     ensure
-      runner.call('sudo', '--', 'umount', dir)
+      runner.call('umount', dir)
     end
 
     private
