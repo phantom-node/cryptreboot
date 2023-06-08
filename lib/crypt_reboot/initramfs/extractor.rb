@@ -19,7 +19,7 @@ module CryptReboot
 
       def initialize(tool: '/usr/bin/unmkinitramfs',
                      tmp_maker: Dir.method(:mktmpdir),
-                     runner: Runner.new)
+                     runner: SimpleRunner.new)
         @tool = tool
         @tmp_maker = tmp_maker
         @runner = runner

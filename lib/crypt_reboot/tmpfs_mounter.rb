@@ -14,7 +14,7 @@ module CryptReboot
 
     attr_reader :runner
 
-    def initialize(runner: Runner.new)
+    def initialize(runner: SimpleRunner.new)
       @runner = runner
     end
   end
