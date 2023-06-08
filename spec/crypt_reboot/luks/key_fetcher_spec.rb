@@ -3,8 +3,8 @@
 require 'tmpdir'
 
 module CryptReboot
-  module CryptTab
-    RSpec.describe LuksKeyFetcher do
+  module Luks
+    RSpec.describe KeyFetcher do
       subject(:fetcher) do
         described_class.new(verbose: true, temp_provider: temp_provider)
       end
@@ -58,7 +58,7 @@ module CryptReboot
           it 'fails' do
             expect do
               fetcher.call(header_file, passphrase)
-            end.to raise_error(LuksKeyFetcher::InvalidPassphrase)
+            end.to raise_error(KeyFetcher::InvalidPassphrase)
           end
         end
 
@@ -68,7 +68,7 @@ module CryptReboot
           it 'fails' do
             expect do
               fetcher.call(header_file, passphrase)
-            end.to raise_error(LuksKeyFetcher::InvalidPassphrase)
+            end.to raise_error(KeyFetcher::InvalidPassphrase)
           end
         end
       end
