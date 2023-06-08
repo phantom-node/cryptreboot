@@ -31,6 +31,34 @@ module CryptReboot
           end.to raise_error(CryptSetupRunner::ExitError)
         end
       end
+
+      context 'with multiline output' do
+        subject(:cryptsetup) do
+          described_class.new(
+            verbose: true,
+            binary: '/usr/bin/echo'
+          )
+        end
+
+        it 'returns array of lines' do
+          result = cryptsetup.call("command\nnext_line", "something\nelse")
+          expect(result).to eq(['command', 'next_line none --header something', 'else'])
+        end
+      end
+
+      context 'with input' do
+        subject(:cryptsetup) do
+          described_class.new(
+            verbose: true,
+            binary: 'spec/fixtures/liberal_cat'
+          )
+        end
+
+        it 'returns array of lines' do
+          result = cryptsetup.call('dummy1', 'dummy2', input: 'this is input')
+          expect(result).to eq(['this is input'])
+        end
+      end
     end
   end
 end
