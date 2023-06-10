@@ -11,6 +11,10 @@ module CryptReboot
           options == other.options && flags == other.flags
       end
 
+      def headevice
+        options[:header] || source
+      end
+
       private
 
       def initialize(target:, source:, key_file:, options:, flags:)
