@@ -4,9 +4,9 @@ module CryptReboot
   module Luks
     # Return LUKS version or raise the exception if given file doesn't represent a valid LUKS device
     class VersionDetector
-      GenericError       = Class.new StandardError
-      NotLuks            = Class.new GenericError
-      UnsupportedVersion = Class.new GenericError
+      Error              = Class.new StandardError
+      NotLuks            = Class.new Error
+      UnsupportedVersion = Class.new Error
 
       def call(headevice)
         detected_version = versions_to_check.find do |tested_version|
