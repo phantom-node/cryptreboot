@@ -1,0 +1,27 @@
+LUKS header information for spec/fixtures/luks_headers/v1.bin
+
+Version:       	1
+Cipher name:   	aes
+Cipher mode:   	xts-plain64
+Hash spec:     	sha256
+Payload offset:	4096
+MK bits:       	512
+MK digest:     	63 b6 18 a1 14 ca 26 a0 a8 7b 5e ff 38 ef 32 6d af 22 21 93
+MK salt:       	8b eb af 11 a8 89 81 45 3b c9 7a 9e b2 80 92 81
+               	7c d9 26 a6 37 0a 53 48 8d 77 69 06 c7 ec 71 64
+MK iterations: 	136961
+UUID:          	07ecf68b-0c15-4544-b51a-df0f46c002f8
+
+Key Slot 0: DISABLED
+Key Slot 1: ENABLED
+	Iterations:         	1000
+	Salt:               	3d ec f3 07 67 bf f0 2c 1c 8a dc a0 ac 31 0e 25
+	                      	42 a7 02 14 7a 75 0a 0a 40 73 80 04 d9 a0 bb 2d
+	Key material offset:	512
+	AF stripes:            	4000
+Key Slot 2: DISABLED
+Key Slot 3: DISABLED
+Key Slot 4: DISABLED
+Key Slot 5: DISABLED
+Key Slot 6: DISABLED
+Key Slot 7: DISABLED
