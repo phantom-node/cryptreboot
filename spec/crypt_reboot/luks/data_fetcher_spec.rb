@@ -41,6 +41,14 @@ module CryptReboot
           expect(data).to eq(expected_data)
         end
       end
+
+      context 'with invalid header' do
+        it 'fails' do
+          expect do
+            fetcher.call('spec/fixtures/luks_headers/invalid.bin')
+          end.to raise_error(DataFetcher::UnsupportedDevice)
+        end
+      end
     end
   end
 end
