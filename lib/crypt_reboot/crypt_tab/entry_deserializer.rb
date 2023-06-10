@@ -9,7 +9,10 @@ module CryptReboot
         floptions = raw_floptions.split(',')
         flags = extract_flags(floptions)
         options = extract_options(floptions)
-        entry_class.new(target: target, source: source, key_file: key_file, options: options, flags: flags)
+        entry_class.new(
+          target: target, source: source, key_file: key_file,
+          options: options, flags: flags
+        )
       end
 
       private
