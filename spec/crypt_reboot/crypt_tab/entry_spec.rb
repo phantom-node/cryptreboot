@@ -31,6 +31,16 @@ module CryptReboot
         expect(device.headevice).to eq('/dev/my_device')
       end
 
+      context 'with directory prefix' do
+        it 'returns prefixed header file path' do
+          expect(header.headevice(header_prefix: '/prefix')).to eq('/prefix/my/header.bin')
+        end
+
+        it 'returns device path ignoring prefix' do
+          expect(device.headevice(header_prefix: '/prefix')).to eq('/dev/my_device')
+        end
+      end
+
       it 'does not equal if entries are different' do
         expect(header).not_to eq(device)
       end

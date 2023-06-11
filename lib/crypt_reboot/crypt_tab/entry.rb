@@ -11,11 +11,21 @@ module CryptReboot
           options == other.options && flags == other.flags
       end
 
-      def headevice
-        options[:header] || source
+      def headevice(header_prefix: nil)
+        if header_prefix && header_path
+          File.join(header_prefix, header_path)
+        elsif header_path
+          header_path
+        else
+          source
+        end
       end
 
       private
+
+      def header_path
+        options[:header]
+      end
 
       def initialize(target:, source:, key_file:, options:, flags:)
         @target = target
