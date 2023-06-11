@@ -2,12 +2,12 @@
 
 module CryptReboot
   module CryptTab
-    RSpec.describe Loader do
-      subject(:loader) do
-        described_class.new(deserializer: deserializer)
+    RSpec.describe Deserializer do
+      subject(:deserializer) do
+        described_class.new(entry_deserializer: entry_deserializer)
       end
 
-      let :deserializer do
+      let :entry_deserializer do
         ->(line) { line.split[1] }
       end
 
@@ -26,8 +26,8 @@ module CryptReboot
         ]
       end
 
-      it 'loads crypttab file' do
-        result = loader.call(content: crypttab_content)
+      it 'deserializes crypttab file' do
+        result = deserializer.call(content: crypttab_content)
         expect(result).to eq(expected_result)
       end
     end

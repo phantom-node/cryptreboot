@@ -3,10 +3,10 @@
 module CryptReboot
   module CryptTab
     # Load crypttab file and return array with deserialized entries
-    class Loader
+    class Deserializer
       def call(filename = nil, content: File.read(filename))
         split_to_important_lines(content).map do |line|
-          deserializer.call line
+          entry_deserializer.call line
         end
       end
 
@@ -18,10 +18,10 @@ module CryptReboot
                .reject { |line| line.start_with? '#' }
       end
 
-      attr_reader :deserializer
+      attr_reader :entry_deserializer
 
-      def initialize(deserializer: EntryDeserializer.new)
-        @deserializer = deserializer
+      def initialize(entry_deserializer: EntryDeserializer.new)
+        @entry_deserializer = entry_deserializer
       end
     end
   end
