@@ -8,7 +8,7 @@ module CryptReboot
 
       def ==(other)
         target == other.target && source == other.source && key_file == other.key_file &&
-          options == other.options && flags == other.flags
+          options == other.options && flags.sort == other.flags.sort
       end
 
       def headevice(header_prefix: nil)
