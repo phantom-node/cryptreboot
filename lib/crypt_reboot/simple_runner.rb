@@ -3,14 +3,14 @@
 require 'tty-command'
 
 module CryptReboot
-  # Run an external process and return stdout
+  # Run an external process and return stdout. Stderr is ignored.
   class SimpleRunner
     ExitError = Class.new StandardError
 
     def call(*args)
       cmd.run(*args).out
-    rescue TTY::Command::ExitError
-      raise exception_class
+    rescue TTY::Command::ExitError => e
+      raise exception_class, cause: e
     end
 
     private
