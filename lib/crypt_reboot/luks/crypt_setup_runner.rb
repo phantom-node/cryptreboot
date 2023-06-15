@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'tty-command'
-
 module CryptReboot
   module Luks
     # Run cryptsetup and return standard output as an array of lines.
@@ -21,8 +19,8 @@ module CryptReboot
       attr_reader :runner, :runner_exception, :binary
 
       def initialize(verbose: false,
-                     runner: ->(*a, **b) { TTY::Command.new(printer: verbose ? :pretty : :null).run(*a, **b).to_a },
-                     runner_exception: TTY::Command::ExitError,
+                     runner: Runner::Lines.new(verbose: verbose),
+                     runner_exception: Runner::ExitError,
                      binary: '/usr/sbin/cryptsetup')
         @runner = runner
         @runner_exception = runner_exception
