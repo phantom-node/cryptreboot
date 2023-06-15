@@ -4,8 +4,6 @@ require 'tty-command'
 
 module CryptReboot
   module Runner
-    ExitError = Class.new StandardError
-
     # Run an external process. Abstract class, use descendants.
     class Generic
       private
