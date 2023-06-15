@@ -34,7 +34,7 @@ module CryptReboot
                      runner: CryptSetupRunner.new(verbose: verbose),
                      run_exception: CryptSetupRunner::ExitError,
                      file_reader: File.method(:read),
-                     temp_provider: SafeTempFile.new)
+                     temp_provider: SafeTemp::FileName.new)
         @runner = runner
         @run_exception = run_exception
         @file_reader = file_reader

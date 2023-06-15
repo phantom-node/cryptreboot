@@ -10,7 +10,7 @@ module CryptReboot
       end
 
       let :temp_provider do
-        SafeTempFile.new(dir_provider: Dir.method(:mktmpdir))
+        SafeTemp::FileName.new(dir_provider: Dir.method(:mktmpdir))
       end
 
       context 'with valid passphrase' do
