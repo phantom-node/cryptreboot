@@ -1,0 +1,39 @@
+# frozen_string_literal: true
+
+module CryptReboot
+  module Initramfs
+    # Yield path to initramfs patched with files_spec.
+    # Patched initramfs will be removed afterwards
+    class Patcher
+      def call(initramfs_path, files_spec)
+        temp_provider.call do |base_dir|
+          files_dir, patch_path, patched_path = prefix('files', 'patch', 'result', with: base_dir)
+          writer.call(files_spec, files_dir)
+          archiver.call(files_dir, patch_path)
+          concatenator.call(initramfs_path, patch_path, to: patched_path)
+          yield patched_path
+        end
+      end
+
+      private
+
+      def prefix(*file_names, with:)
+        file_names.map do |file_name|
+          File.join(with, file_name)
+        end
+      end
+
+      attr_reader :temp_provider, :writer, :archiver, :concatenator
+
+      def initialize(temp_provider: SafeTemp::Directory.new,
+                     writer: FilesWriter.new,
+                     archiver: Archiver.new,
+                     concatenator: Concatenator.new)
+        @temp_provider = temp_provider
+        @writer = writer
+        @archiver = archiver
+        @concatenator = concatenator
+      end
+    end
+  end
+end
