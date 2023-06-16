@@ -36,7 +36,7 @@ module CryptReboot
 
         it 're-raises the exception' do
           expect do
-            extractor.call('dummy_initramfs') {}
+            extractor.call('dummy_initramfs') { nil }
           end.to raise_error(Extractor::Error)
         end
       end

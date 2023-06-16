@@ -98,18 +98,17 @@ module CryptReboot
         end
       end
 
-
       context 'with crypttab containing LUKS entry with detached header' do
         let :crypttab do
           [
-            create_entry('luks', '/dev/luks_source', :'header' => '/my/header.luks'),
+            create_entry('luks', '/dev/luks_source', header: '/my/header.luks')
           ]
         end
 
         let :expected_files do
           {
             '/cryptreboot/luks.key' => 'header_key',
-            '/cryptroot/crypttab' => "luks"
+            '/cryptroot/crypttab' => 'luks'
           }
         end
 

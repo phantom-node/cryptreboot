@@ -9,7 +9,7 @@ module CryptReboot
     it 'returns hash if all required fields were passed' do
       map[:field1] = 1
       map[:field2] = 2
-      expect(map.to_h).to eq({field1: 1, field2: 2})
+      expect(map.to_h).to eq({ field1: 1, field2: 2 })
     end
 
     it 'fails when trying to assign twice' do
