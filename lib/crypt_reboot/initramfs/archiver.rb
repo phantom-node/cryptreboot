@@ -20,7 +20,7 @@ module CryptReboot
 
       attr_reader :runner, :exception_class, :finder, :cpio
 
-      def initialize(runner: Runner::NoResult.new(verbose: verbose),
+      def initialize(runner: Runner::NoResult.new,
                      exception_class: Runner::ExitError,
                      finder: -> { Find.find('.').to_a.join("\n") },
                      cpio: '/usr/bin/cpio')
