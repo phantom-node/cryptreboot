@@ -17,10 +17,10 @@ module CryptReboot
         expect(result).to be(false)
       end
 
-      it 'raises exception on other errors' do
+      it 'raises exception on not found error' do
         expect do
           runner.call('dfkjgaksjdgfkajsghd')
-        end.to raise_error(Errno::ENOENT)
+        end.to raise_error(CommandNotFound)
       end
     end
   end
