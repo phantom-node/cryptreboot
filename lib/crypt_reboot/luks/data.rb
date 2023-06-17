@@ -12,7 +12,7 @@ module CryptReboot
       end
 
       def key_bits
-        key.size * 8
+        key.bytesize * 8
       end
 
       def dup_adding_key(new_key)
