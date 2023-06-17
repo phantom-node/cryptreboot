@@ -17,24 +17,25 @@ module CryptReboot
 
       def luks_dump(headevice, master_key_file, passphrase)
         runner.call(
-          'luksDump', headevice,
+          binary, 'luksDump', 'none', '--header', headevice,
           '--dump-master-key', '--master-key-file', master_key_file,
           '--key-file', '-',
           input: passphrase
         )
       rescue run_exception
         # For simplicity sake let's assume it's invalid passphrase.
-        # Other errors such as invalid device/header were handled by version validation.
+        # Other errors such as invalid device/header were handled by previous validation.
         raise InvalidPassphrase
       end
 
-      attr_reader :runner, :run_exception, :file_reader, :temp_provider
+      attr_reader :binary, :runner, :run_exception, :file_reader, :temp_provider
 
-      def initialize(verbose: false,
-                     runner: CryptSetupRunner.new(verbose: verbose),
-                     run_exception: CryptSetupRunner::ExitError,
+      def initialize(binary: '/usr/sbin/cryptsetup',
+                     runner: Runner::Lines.new,
+                     run_exception: Runner::ExitError,
                      file_reader: File.method(:read),
                      temp_provider: SafeTemp::FileName.new)
+        @binary = binary
         @runner = runner
         @run_exception = run_exception
         @file_reader = file_reader

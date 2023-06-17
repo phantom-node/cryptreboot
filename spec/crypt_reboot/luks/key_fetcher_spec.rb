@@ -6,7 +6,7 @@ module CryptReboot
   module Luks
     RSpec.describe KeyFetcher do
       subject(:fetcher) do
-        described_class.new(verbose: true, temp_provider: temp_provider)
+        described_class.new(temp_provider: temp_provider)
       end
 
       let :temp_provider do

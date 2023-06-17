@@ -12,8 +12,8 @@ module CryptReboot
         options = build_options(input, output_file)
         adjusted_args = front_args + args
         cmd.send(run_method, *adjusted_args, **options)
-      rescue TTY::Command::ExitError => e
-        raise exception_class, cause: e
+      rescue cmd_exception => e
+        raise ExitError, cause: e
       end
 
       def build_options(input, output_file)
@@ -23,17 +23,17 @@ module CryptReboot
         end
       end
 
-      attr_reader :cmd, :run_method, :front_args, :exception_class
+      attr_reader :cmd, :run_method, :front_args, :cmd_exception
 
       def initialize(verbose: false,
                      cmd: TTY::Command.new(printer: verbose ? :pretty : :null),
                      run_method: :run,
                      sudo: false,
-                     exception_class: ExitError)
+                     cmd_exception: TTY::Command::ExitError)
         @cmd = cmd
         @run_method = run_method
         @front_args = sudo ? ['sudo', '--'] : []
-        @exception_class = exception_class
+        @cmd_exception = cmd_exception
       end
     end
   end

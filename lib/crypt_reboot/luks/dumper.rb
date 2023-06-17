@@ -5,17 +5,19 @@ module CryptReboot
     # Depending on LUKS version, delegates parsing to different parser
     class Dumper
       def call(headevice, version)
-        dump = runner.call('luksDump', headevice)
+        dump = runner.call(binary, 'luksDump', 'none', '--header', headevice)
         parser = parsers.fetch(version)
         parser.call(dump)
       end
 
       private
 
-      attr_reader :runner, :parsers
+      attr_reader :binary, :runner, :parsers
 
-      def initialize(runner: CryptSetupRunner.new,
+      def initialize(binary: '/usr/sbin/cryptsetup',
+                     runner: Runner::Lines.new,
                      parsers: { 'LUKS2' => LuksV2Parser.new, 'LUKS1' => LuksV1Parser.new })
+        @binary = binary
         @runner = runner
         @parsers = parsers
       end

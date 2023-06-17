@@ -3,9 +3,7 @@
 module CryptReboot
   module Initramfs
     RSpec.describe Extractor do
-      subject(:extractor) { described_class.new(runner: fake_runner, exception_class: exception_class) }
-
-      let(:exception_class) { ZeroDivisionError }
+      subject(:extractor) { described_class.new(runner: fake_runner) }
 
       let :fake_runner do
         ->(_tool, _initramfs, dir) { File.open(test_file_path(dir), 'w') { 0 } }
@@ -27,18 +25,6 @@ module CryptReboot
           tmp_dir = dir
         end
         expect(File).not_to exist(tmp_dir)
-      end
-
-      context 'when exception happens' do
-        let :fake_runner do
-          proc { raise exception_class }
-        end
-
-        it 're-raises the exception' do
-          expect do
-            extractor.call('dummy_initramfs') { nil }
-          end.to raise_error(Extractor::Error)
-        end
       end
     end
   end

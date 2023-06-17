@@ -8,7 +8,7 @@ module CryptReboot
     # Make sure to cleanup afterwards.
     class Directory
       def call
-        Dir.mktmpdir do |dir|
+        tmp_maker.call do |dir|
           mounter.call(dir) do
             yield dir
           end
@@ -17,10 +17,11 @@ module CryptReboot
 
       private
 
-      attr_reader :mounter
+      attr_reader :mounter, :tmp_maker
 
-      def initialize(mounter: Mounter.new)
+      def initialize(mounter: Mounter.new, tmp_maker: Dir.method(:mktmpdir))
         @mounter = mounter
+        @tmp_maker = tmp_maker
       end
     end
   end
