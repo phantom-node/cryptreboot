@@ -4,9 +4,13 @@ module CryptReboot
   module CryptTab
     # Deserialize crypttab line into value object
     class EntryDeserializer
+      InvalidFormat = Class.new StandardError
+
       def call(line)
-        target, source, key_file, raw_floptions = line.split
-        floptions = raw_floptions.split(',')
+        target, source, key_file, raw_floptions = columns = line.split
+        raise InvalidFormat if columns.size < 3
+
+        floptions = raw_floptions.to_s.split(',')
         flags = extract_flags(floptions)
         options = extract_options(floptions)
         entry_class.new(
