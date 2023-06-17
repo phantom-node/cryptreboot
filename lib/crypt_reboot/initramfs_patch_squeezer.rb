@@ -18,7 +18,7 @@ module CryptReboot
     def initialize(crypttab_relative_path = 'main/cryptroot/crypttab',
                    extractor: Initramfs::Extractor.new,
                    deserializer: CryptTab::Deserializer.new,
-                   files_generator: CryptTab::FilesGenerator.new)
+                   files_generator: FilesGenerator.new)
       @crypttab_relative_path = crypttab_relative_path
       @extractor = extractor
       @deserializer = deserializer

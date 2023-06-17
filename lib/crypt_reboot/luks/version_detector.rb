@@ -9,37 +9,23 @@ module CryptReboot
       UnsupportedVersion = Class.new Error
 
       def call(headevice)
-        detected_version = versions_to_check.find do |tested_version|
-          check_version(headevice, tested_version)
+        version = supported_versions.find do |tested_version|
+          checker.call(headevice, tested_version)
         end
-        raise NotLuks unless detected_version
-        raise UnsupportedVersion if detected_version == :other
+        return version if version
+        raise UnsupportedVersion if checker.call(headevice)
 
-        detected_version
+        raise NotLuks
       end
 
       private
 
-      def versions_to_check
-        supported_versions + [:other]
-      end
-
-      def check_version(headevice, version)
-        args = version == :other ? [] : ['--type', version]
-        runner.call('isLuks', headevice, *args)
-        true
-      rescue run_exception
-        false
-      end
-
-      attr_reader :runner, :run_exception, :supported_versions
+      attr_reader :checker, :supported_versions
 
       def initialize(verbose: false,
-                     runner: CryptSetupRunner.new(verbose: verbose),
-                     run_exception: CryptSetupRunner::ExitError,
+                     checker: Checker.new(verbose: verbose),
                      supported_versions: %w[LUKS2 LUKS1])
-        @runner = runner
-        @run_exception = run_exception
+        @checker = checker
         @supported_versions = supported_versions
       end
     end
