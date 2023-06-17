@@ -36,7 +36,7 @@ module CryptReboot
             option2: 'd',
             cipher: 'caesar-ecb',
             size: 256,
-            offset: 123
+            offset: 100
           }.merge(plain_options),
           flags: %i[flag1 flag2 plain]
         )
@@ -45,7 +45,7 @@ module CryptReboot
       let :data do
         Luks::Data.new(
           cipher: 'caesar-ecb',
-          offset: 123,
+          offset: 51200,
           sector_size: 4096,
           key: "\x0" * 32
         )

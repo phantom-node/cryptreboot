@@ -16,12 +16,17 @@ module CryptReboot
 
       private
 
+      # According to cryptsetup manual, offset is specified in 512-byte sectors.
+      # Therefore sector size of the actual device shouldn't be used.
+      OFFSET_SECTOR_SIZE = 512
+      private_constant :OFFSET_SECTOR_SIZE
+
       def convert_options(options, data)
         options = options.reject do |option, _|
           %i[keyfile-size keyslot key-slot header keyscript].include? option
         end
         options[:'sector-size'] ||= data.sector_size # allow user to set it explicitly
-        options.merge({ cipher: data.cipher, size: data.key_bits, offset: data.offset })
+        options.merge({ cipher: data.cipher, size: data.key_bits, offset: data.offset / OFFSET_SECTOR_SIZE })
       end
 
       attr_reader :entry_class
