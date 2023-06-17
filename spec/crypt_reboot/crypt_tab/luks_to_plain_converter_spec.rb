@@ -45,7 +45,7 @@ module CryptReboot
       let :data do
         Luks::Data.new(
           cipher: 'caesar-ecb',
-          offset: 51200,
+          offset: 51_200,
           sector_size: 4096,
           key: "\x0" * 32
         )
