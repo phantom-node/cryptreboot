@@ -5,12 +5,17 @@ module CryptReboot
     # Serialize entries and return crypttab file content as a string
     class Serializer
       def call(entries)
-        entries.map do |entry|
-          entry_serializer.call(entry)
-        end.prepend(header).join("\n")
+        body = serialize(entries).join("\n")
+        "#{header}\n#{body}\n"
       end
 
       private
+
+      def serialize(entries)
+        entries.map do |entry|
+          entry_serializer.call(entry)
+        end
+      end
 
       attr_reader :entry_serializer, :header
 

@@ -12,7 +12,7 @@ module CryptReboot
       {
         '/cryptroot/crypttab' => "# This file has been patched by cryptreboot\n" \
                                  'cryptswap UUID=9fc8c882-f67f-4e44-89e0-7cd63be81fd5 /dev/urandom ' \
-                                 'swap,plain,offset=1024,cipher=aes-xts-plain64,size=512'
+                                 "swap,plain,offset=1024,cipher=aes-xts-plain64,size=512\n"
       }
     end
 

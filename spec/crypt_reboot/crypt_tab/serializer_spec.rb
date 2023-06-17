@@ -19,7 +19,7 @@ module CryptReboot
         "# Comment\n" \
           "line:1\n" \
           "line:2\n" \
-          'line:3'
+          "line:3\n"
       end
 
       it 'serializes entries' do
