@@ -7,11 +7,12 @@ module CryptReboot
   class Config
     include Singleton
 
-    attr_accessor :verbose
+    attr_accessor :save_patch, :verbose
 
     private
 
     def initialize
+      @save_patch = nil
       @verbose = false
     end
   end

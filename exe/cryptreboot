@@ -7,6 +7,7 @@ require 'crypt_reboot'
 args = ARGV - ['--verbose']
 
 config = CryptReboot::Config.instance
+config.save_patch = args.first
 config.verbose = ARGV.include?('--verbose')
 
 kernel = '/boot/vmlinuz'
