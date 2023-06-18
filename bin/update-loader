@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Update basic_loader file
+class BasicUpdater
+  def call(loader_path)
+    create loader_path
+
+    loader_dir = File.dirname(loader_path)
+
+    loader.on_load do |_cpath, _value, abspath|
+      next if abspath !~ /.rb$/i # skip directories
+
+      arg = relative_path_from(loader_dir, abspath).sub(/.rb$/i, '')
+      append loader_path, %(require '#{arg}')
+    end
+
+    loader.eager_load
+  end
+
+  private
+
+  def append(file, line)
+    File.open(file, 'a') { |f| f.puts line }
+  end
+
+  def create(file)
+    File.open(file, 'w') do |f|
+      f.puts '# frozen_string_literal: true'
+      f.puts
+      f.puts '# File generated automatically, do not edit'
+      f.puts
+    end
+  end
+
+  def relative_path_from(base_dir, target_path)
+    target = Pathname.new(target_path)
+    base = Pathname.new(base_dir)
+    target.relative_path_from(base).to_s
+  end
+
+  attr_reader :loader
+
+  def initialize(loader)
+    @loader = loader
+  end
+end
+
+require 'bundler/setup'
+require 'pathname'
+require 'fileutils'
+
+loader_path = File.join(__dir__, '..', 'lib', 'basic_loader.rb')
+FileUtils.rm_f(loader_path)
+
+# Has to be invoked after the loader file was deleted
+require 'crypt_reboot'
+
+BasicUpdater.new(CryptReboot::CODE_LOADER).call(loader_path)
+
+puts 'Loader updated'

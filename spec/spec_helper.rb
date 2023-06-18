@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'bundler/setup'
 require 'crypt_reboot'
 
 CryptReboot::Config.instance.verbose = true
