@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.metadata['changelog_uri'] = 'https://github.com/phantom-node/cryptreboot/blob/master/CHANGELOG.md'
   spec.metadata['rubygems_mfa_required'] = 'true'
 
-  spec.files = ['CHANGELOG.md', 'LICENSE.txt', 'README.md']
+  spec.files = ['CHANGELOG.md', 'LICENSE.txt', 'README.md', 'lib/basic_loader.rb']
   spec.files += Dir.chdir(__dir__) do
     `git ls-files -z`.split("\x0").select do |f|
       f.match(%r{\A(?:lib|exe)/})
@@ -29,5 +29,4 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'tty-command', '~> 0.10'
-  spec.add_dependency 'zeitwerk', '~> 2.6'
 end
