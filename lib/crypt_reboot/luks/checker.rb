@@ -14,8 +14,7 @@ module CryptReboot
       attr_reader :binary, :runner
 
       def initialize(binary: '/usr/sbin/cryptsetup',
-                     verbose: false,
-                     runner: Runner::Boolean.new(verbose: verbose))
+                     runner: Runner::Boolean.new)
         @binary = binary
         @runner = runner
       end

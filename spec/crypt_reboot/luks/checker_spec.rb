@@ -3,7 +3,7 @@
 module CryptReboot
   module Luks
     RSpec.describe Checker do
-      subject(:checker) { described_class.new(verbose: true) }
+      subject(:checker) { described_class.new }
 
       context 'when looking for LUKS2' do
         it 'recognizes LUKS2' do

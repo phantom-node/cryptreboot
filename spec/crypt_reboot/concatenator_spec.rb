@@ -4,9 +4,7 @@ require 'tmpdir'
 
 module CryptReboot
   RSpec.describe Concatenator do
-    subject(:cat) do
-      described_class.new(verbose: true)
-    end
+    subject(:cat) { described_class.new }
 
     it 'concatenates files' do
       Dir.mktmpdir do |dir|

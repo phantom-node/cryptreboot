@@ -5,9 +5,7 @@ require 'tmpdir'
 module CryptReboot
   module Initramfs
     RSpec.describe Archiver do
-      subject(:archiver) do
-        described_class.new(runner: Runner::NoResult.new(verbose: true))
-      end
+      subject(:archiver) { described_class.new }
 
       def tmp_file
         Dir.mktmpdir do |base_dir|

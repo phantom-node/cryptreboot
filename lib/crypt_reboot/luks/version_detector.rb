@@ -22,8 +22,7 @@ module CryptReboot
 
       attr_reader :checker, :supported_versions
 
-      def initialize(verbose: false,
-                     checker: Checker.new(verbose: verbose),
+      def initialize(checker: Checker.new,
                      supported_versions: %w[LUKS2 LUKS1])
         @checker = checker
         @supported_versions = supported_versions

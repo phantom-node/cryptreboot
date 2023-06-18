@@ -19,8 +19,7 @@ module CryptReboot
 
       attr_reader :runner, :mounter, :umounter
 
-      def initialize(verbose: false,
-                     runner: Runner::NoResult.new(verbose: verbose),
+      def initialize(runner: Runner::NoResult.new,
                      mounter: ->(dir) { runner.call('mount', '-t', 'tmpfs', '-o', 'mode=700', 'none', dir) },
                      umounter: ->(dir) { runner.call('umount', dir) })
         @runner = runner

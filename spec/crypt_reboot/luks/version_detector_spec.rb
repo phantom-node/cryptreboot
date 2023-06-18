@@ -4,7 +4,7 @@ module CryptReboot
   module Luks
     RSpec.describe VersionDetector do
       subject(:detector) do
-        described_class.new(verbose: true, checker: checker, supported_versions: supported_versions)
+        described_class.new(checker: checker, supported_versions: supported_versions)
       end
 
       let :checker do
