@@ -27,8 +27,7 @@ module CryptReboot
 
       attr_reader :cmd, :run_method, :front_args, :exceptions
 
-      def initialize(verbose: false,
-                     cmd: TTY::Command.new(printer: verbose ? :pretty : :null),
+      def initialize(cmd: TTY::Command.new(printer: Config.instance.verbose ? :pretty : :null),
                      run_method: :run,
                      sudo: false,
                      exceptions: {
