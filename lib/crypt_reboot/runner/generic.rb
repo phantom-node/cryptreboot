@@ -8,8 +8,8 @@ module CryptReboot
     class Generic
       private
 
-      def call(*args, input: nil, output_file: nil)
-        options = build_options(input, output_file)
+      def call(*args, input: nil, output_file: nil, binary: false)
+        options = build_options(input, output_file, binary)
         adjusted_args = front_args + args
         cmd.send(run_method, *adjusted_args, **options)
       rescue exceptions[:exit] => e
@@ -18,10 +18,11 @@ module CryptReboot
         raise CommandNotFound, cause: e
       end
 
-      def build_options(input, output_file)
+      def build_options(input, output_file, binary)
         {}.tap do |options|
           options[:input] = input if input
           options[:out] = output_file if output_file
+          options[:binmode] = true if binary
         end
       end
 
