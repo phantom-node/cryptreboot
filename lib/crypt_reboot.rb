@@ -2,7 +2,9 @@
 
 begin
   require 'basic_loader'
-rescue LoadError
+rescue LoadError => e
+  raise if e.path != 'basic_loader'
+
   require 'zeitwerk'
   loader = Zeitwerk::Loader.for_gem
   loader.setup
