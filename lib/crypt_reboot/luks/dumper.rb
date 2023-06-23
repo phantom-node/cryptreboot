@@ -14,7 +14,7 @@ module CryptReboot
 
       attr_reader :binary, :runner, :parsers
 
-      def initialize(binary: '/usr/sbin/cryptsetup',
+      def initialize(binary: Config.instance.cryptsetup_path,
                      runner: Runner::Lines.new,
                      parsers: { 'LUKS2' => LuksV2Parser.new, 'LUKS1' => LuksV1Parser.new })
         @binary = binary

@@ -17,7 +17,7 @@ module CryptReboot
 
       attr_reader :tool, :tmp_maker, :runner
 
-      def initialize(tool: '/usr/bin/unmkinitramfs',
+      def initialize(tool: Config.instance.unmkinitramfs_path,
                      tmp_maker: Dir.method(:mktmpdir),
                      runner: Runner::NoResult.new)
         @tool = tool

@@ -19,7 +19,7 @@ module CryptReboot
 
       def initialize(runner: Runner::Binary.new,
                      finder: -> { Find.find('.').to_a.join("\n") },
-                     cpio: '/usr/bin/cpio',
+                     cpio: Config.instance.cpio_path,
                      gziper: Gziper.new)
         @runner = runner
         @finder = finder

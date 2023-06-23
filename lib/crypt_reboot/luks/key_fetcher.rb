@@ -30,7 +30,7 @@ module CryptReboot
 
       attr_reader :binary, :runner, :run_exception, :file_reader, :temp_provider
 
-      def initialize(binary: '/usr/sbin/cryptsetup',
+      def initialize(binary: Config.instance.cryptsetup_path,
                      runner: Runner::Lines.new,
                      run_exception: Runner::ExitError,
                      file_reader: File.method(:read),

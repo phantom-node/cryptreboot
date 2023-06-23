@@ -11,7 +11,7 @@ module CryptReboot
 
     attr_reader :tool, :runner
 
-    def initialize(tool: '/usr/bin/cat',
+    def initialize(tool: Config.instance.cat_path,
                    runner: Runner::NoResult.new)
       @tool = tool
       @runner = runner

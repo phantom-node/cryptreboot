@@ -16,7 +16,7 @@ module CryptReboot
 
       attr_reader :tool, :runner
 
-      def initialize(tool: '/usr/sbin/kexec',
+      def initialize(tool: Config.instance.kexec_path,
                      runner: Runner::NoResult.new)
         @tool = tool
         @runner = runner

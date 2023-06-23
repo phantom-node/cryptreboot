@@ -4,14 +4,10 @@
 require 'bundler/setup'
 require 'crypt_reboot'
 
-args = ARGV - ['--verbose']
-
 config = CryptReboot::Config.instance
-config.save_patch = args.first
-config.verbose = ARGV.include?('--verbose')
-
-boot_config = CryptReboot::BootConfig.new(kernel: '/boot/vmlinuz',
-                                          initramfs: '/boot/initrd.img')
+args = ARGV - ['--verbose']
+config.update!(patch_save_path: args.first, debug: ARGV.include?('--debug'))
+boot_config = CryptReboot::BootConfig.new(kernel: config.kernel, initramfs: config.initramfs)
 
 loader = CryptReboot::KexecPatchingLoader.new
 loader.call(boot_config)

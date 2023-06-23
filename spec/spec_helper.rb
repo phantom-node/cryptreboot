@@ -3,7 +3,7 @@
 require 'bundler/setup'
 require 'crypt_reboot'
 
-CryptReboot::Config.instance.verbose = true
+CryptReboot::Config.instance.update!(debug: true)
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

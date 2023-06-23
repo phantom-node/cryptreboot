@@ -13,7 +13,7 @@ module CryptReboot
 
       attr_reader :binary, :runner
 
-      def initialize(binary: '/usr/sbin/cryptsetup',
+      def initialize(binary: Config.instance.cryptsetup_path,
                      runner: Runner::Boolean.new)
         @binary = binary
         @runner = runner

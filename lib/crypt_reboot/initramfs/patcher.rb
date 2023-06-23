@@ -30,7 +30,7 @@ module CryptReboot
                      writer: FilesWriter.new,
                      archiver: Archiver.new,
                      concatenator: Concatenator.new,
-                     saver: FileSaver.new(Config.instance.save_patch))
+                     saver: FileSaver.new(Config.instance.patch_save_path))
         @temp_provider = temp_provider
         @writer = writer
         @archiver = archiver
