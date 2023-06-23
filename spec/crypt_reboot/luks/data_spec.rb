@@ -40,7 +40,7 @@ module CryptReboot
       end
 
       it 'adds key' do
-        new_data = data(default_params).dup_adding_key('secret')
+        new_data = data(default_params).with_key('secret')
         expected_data = data(default_params.merge({ key: 'secret' }))
         expect(new_data).to eq(expected_data)
       end

@@ -15,7 +15,7 @@ module CryptReboot
         key.bytesize * 8
       end
 
-      def dup_adding_key(new_key)
+      def with_key(new_key)
         self.class.new(
           cipher: cipher,
           offset: offset,

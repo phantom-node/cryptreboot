@@ -9,7 +9,7 @@ module CryptReboot
         data = dumper.call(headevice, version)
         pass = asker.call("Enter passphrase to unlock #{headevice}: ")
         key = key_fetcher.call(headevice, pass)
-        data.dup_adding_key(key)
+        data.with_key(key)
       end
 
       private
