@@ -4,8 +4,12 @@ module CryptReboot
   module Kexec
     # Load new kernel and initramfs into memory, making then ready for later execution
     class Loader
-      def call(kernel, cmdline, initramfs)
-        runner.call(tool, '-al', kernel, '--append', cmdline, '--initrd', initramfs)
+      def call(boot_config)
+        args = [tool, '-al', boot_config.kernel]
+        args += ['--initrd', boot_config.initramfs] if boot_config.initramfs
+        args += boot_config.cmdline ? ['--append', boot_config.cmdline] : ['--reuse-cmdline']
+
+        runner.call(*args)
       end
 
       private

@@ -4,9 +4,10 @@ module CryptReboot
   # Patch initramfs and load it along with kernel using kexec,
   # so it is ready to be executed.
   class KexecPatchingLoader
-    def call(kernel_path, cmdline, initramfs_path)
-      generator.call(initramfs_path) do |patched_initramfs_path|
-        loader.call(kernel_path, cmdline, patched_initramfs_path)
+    def call(boot_config)
+      generator.call(boot_config.initramfs) do |patched_initramfs|
+        patched_boot_config = boot_config.with_initramfs(patched_initramfs)
+        loader.call(patched_boot_config)
       end
     end
 

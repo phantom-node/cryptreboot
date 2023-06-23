@@ -12,8 +12,10 @@ module CryptReboot
     let(:kexec_loader) { spy }
 
     it 'loads patched initramfs' do
-      loader.call('kernel', 'cmdline', 'initramfs')
-      expect(kexec_loader).to have_received(:call).with('kernel', 'cmdline', 'patched-initramfs')
+      boot_config = BootConfig.new(kernel: 'kernel', cmdline: 'cmdline', initramfs: 'initramfs')
+      loader.call(boot_config)
+      new_boot_config = boot_config.with_initramfs('patched-initramfs')
+      expect(kexec_loader).to have_received(:call).with(new_boot_config)
     end
   end
 end

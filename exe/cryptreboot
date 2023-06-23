@@ -10,9 +10,8 @@ config = CryptReboot::Config.instance
 config.save_patch = args.first
 config.verbose = ARGV.include?('--verbose')
 
-kernel = '/boot/vmlinuz'
-cmdline = `cat /proc/cmdline`.chop
-initramfs = '/boot/initrd.img'
+boot_config = CryptReboot::BootConfig.new(kernel: '/boot/vmlinuz',
+                                          initramfs: '/boot/initrd.img')
 
 loader = CryptReboot::KexecPatchingLoader.new
-loader.call(kernel, cmdline, initramfs)
+loader.call(boot_config)
