@@ -4,10 +4,6 @@
 require 'bundler/setup'
 require 'crypt_reboot'
 
-config = CryptReboot::Config.instance
-args = ARGV - ['--debug']
-config.update!(patch_save_path: args.first, debug: ARGV.include?('--debug'))
-boot_config = CryptReboot::BootConfig.new(kernel: config.kernel, initramfs: config.initramfs)
-
-loader = CryptReboot::KexecPatchingLoader.new
-loader.call(boot_config)
+executor = CryptReboot::Cli::ParamsParsingExecutor.new
+result = executor.call(ARGV)
+exit result.call
