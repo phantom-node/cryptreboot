@@ -7,7 +7,7 @@ module CryptReboot
 
     attr_reader :initramfs, :cmdline, :kernel, :patch_save_path, :cat_path, :cpio_path,
                 :unmkinitramfs_path, :kexec_path, :cryptsetup_path, :reboot_path,
-                :debug, :prepare_only
+                :mount_path, :umount_path, :debug, :prepare_only
 
     def update!(**settings)
       settings.each do |name, value|
@@ -36,6 +36,8 @@ module CryptReboot
       @kexec_path = 'kexec'
       @cryptsetup_path = 'cryptsetup'
       @reboot_path = 'reboot'
+      @mount_path = 'mount'
+      @umount_path = 'umount'
 
       # Flags
       @debug = false

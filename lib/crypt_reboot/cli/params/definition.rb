@@ -70,6 +70,18 @@ module CryptReboot
           default CONFIG.cryptsetup_path
         end
 
+        option :mount_path do
+          long '--mount-path path'
+          desc 'Path to `mount` command'
+          default CONFIG.mount_path
+        end
+
+        option :umount_path do
+          long '--umount-path path'
+          desc 'Path to `umount` command'
+          default CONFIG.umount_path
+        end
+
         # Flags
 
         flag :prepare_only do
