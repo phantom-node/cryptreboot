@@ -29,4 +29,5 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'tty-command', '~> 0.10'
+  spec.add_dependency 'tty-option', '~> 0.3'
 end
