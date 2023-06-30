@@ -30,6 +30,7 @@ class BasicUpdater
       f.puts
       f.puts '# File generated automatically, do not edit'
       f.puts
+      f.puts "require 'crypt_reboot/version'" # not loaded automatically
     end
   end
 
