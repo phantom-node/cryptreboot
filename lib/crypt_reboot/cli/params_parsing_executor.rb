@@ -17,7 +17,7 @@ module CryptReboot
       private
 
       def configure_and_exec(params)
-        config_updater.call(params)
+        config_updater.call(**params)
         loader.call
         rebooter
       end
