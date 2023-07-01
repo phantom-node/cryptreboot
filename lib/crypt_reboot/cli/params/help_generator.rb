@@ -6,7 +6,7 @@ module CryptReboot
       # Returns usage
       class HelpGenerator
         def call
-          definition.help
+          definition.help(order: ->(params) { params })
         end
 
         private
