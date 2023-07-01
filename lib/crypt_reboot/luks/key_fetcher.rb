@@ -28,14 +28,18 @@ module CryptReboot
         raise InvalidPassphrase
       end
 
-      attr_reader :binary, :runner, :run_exception, :file_reader, :temp_provider
+      def binary
+        lazy_binary.call
+      end
 
-      def initialize(binary: Config.instance.cryptsetup_path,
+      attr_reader :lazy_binary, :runner, :run_exception, :file_reader, :temp_provider
+
+      def initialize(lazy_binary: LazyConfig.cryptsetup_path,
                      runner: Runner::Lines.new,
                      run_exception: Runner::ExitError,
                      file_reader: File.method(:read),
                      temp_provider: SafeTemp::FileName.new)
-        @binary = binary
+        @lazy_binary = lazy_binary
         @runner = runner
         @run_exception = run_exception
         @file_reader = file_reader

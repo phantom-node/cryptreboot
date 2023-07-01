@@ -11,11 +11,15 @@ module CryptReboot
 
       private
 
-      attr_reader :binary, :runner
+      def binary
+        lazy_binary.call
+      end
 
-      def initialize(binary: Config.instance.cryptsetup_path,
+      attr_reader :lazy_binary, :runner
+
+      def initialize(lazy_binary: LazyConfig.cryptsetup_path,
                      runner: Runner::Boolean.new)
-        @binary = binary
+        @lazy_binary = lazy_binary
         @runner = runner
       end
     end

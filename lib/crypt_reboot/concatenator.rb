@@ -9,11 +9,15 @@ module CryptReboot
 
     private
 
-    attr_reader :tool, :runner
+    def tool
+      lazy_tool.call
+    end
 
-    def initialize(tool: Config.instance.cat_path,
+    attr_reader :lazy_tool, :runner
+
+    def initialize(lazy_tool: LazyConfig.cat_path,
                    runner: Runner::NoResult.new)
-      @tool = tool
+      @lazy_tool = lazy_tool
       @runner = runner
     end
   end

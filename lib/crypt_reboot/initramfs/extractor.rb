@@ -15,12 +15,16 @@ module CryptReboot
 
       private
 
-      attr_reader :tool, :tmp_maker, :runner
+      attr_reader :lazy_tool, :tmp_maker, :runner
 
-      def initialize(tool: Config.instance.unmkinitramfs_path,
+      def tool
+        lazy_tool.call
+      end
+
+      def initialize(lazy_tool: LazyConfig.unmkinitramfs_path,
                      tmp_maker: Dir.method(:mktmpdir),
                      runner: Runner::NoResult.new)
-        @tool = tool
+        @lazy_tool = lazy_tool
         @tmp_maker = tmp_maker
         @runner = runner
       end

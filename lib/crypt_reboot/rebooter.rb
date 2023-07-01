@@ -3,7 +3,7 @@
 module CryptReboot
   # Perform the reboot or exit (doesn't return)
   class Rebooter
-    def call(act = !Config.instance.prepare_only)
+    def call(act = !Config.prepare_only)
       act ? runner.call : exiter.call
     end
 
@@ -11,8 +11,7 @@ module CryptReboot
 
     attr_reader :runner, :exiter
 
-    def initialize(tool: Config.instance.reboot_path,
-                   runner: -> { Process.exec(tool) },
+    def initialize(runner: -> { Process.exec Config.reboot_path },
                    exiter: -> { exit 0 })
       @runner = runner
       @exiter = exiter

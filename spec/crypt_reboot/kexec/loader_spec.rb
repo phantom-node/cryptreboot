@@ -4,7 +4,7 @@ module CryptReboot
   module Kexec
     RSpec.describe Loader do
       subject(:loader) do
-        described_class.new(tool: 'kexec', runner: runner)
+        described_class.new(lazy_tool: -> { 'kexec' }, runner: runner)
       end
 
       let(:runner) { spy }

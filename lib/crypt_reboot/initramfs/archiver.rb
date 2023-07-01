@@ -15,15 +15,19 @@ module CryptReboot
 
       private
 
-      attr_reader :runner, :finder, :cpio, :gziper
+      def cpio
+        lazy_cpio.call
+      end
+
+      attr_reader :runner, :finder, :lazy_cpio, :gziper
 
       def initialize(runner: Runner::Binary.new,
                      finder: -> { Find.find('.').to_a.join("\n") },
-                     cpio: Config.instance.cpio_path,
+                     lazy_cpio: LazyConfig.cpio_path,
                      gziper: Gziper.new)
         @runner = runner
         @finder = finder
-        @cpio = cpio
+        @lazy_cpio = lazy_cpio
         @gziper = gziper
       end
     end

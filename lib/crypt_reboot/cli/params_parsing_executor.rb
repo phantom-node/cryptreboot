@@ -8,13 +8,16 @@ module CryptReboot
         params = parser.call(raw_params)
         handle_action_params!(params) or configure_and_exec(params)
       rescue StandardError => e
-        raise if debug_checker.call
+        raise if debug?
 
-        error_message = "#{exception_name(e)}: #{e.message}"
-        sad_exiter_class.new(error_message)
+        sad_exiter_class.new(error_message(e))
       end
 
       private
+
+      def debug?
+        debug_checker.call
+      end
 
       def configure_and_exec(params)
         config_updater.call(**params)
@@ -36,17 +39,21 @@ module CryptReboot
         name.gsub(/([a-z\d])([A-Z])/, '\1 \2').capitalize
       end
 
+      def error_message(exception)
+        "#{exception_name(exception)}: #{exception.message}"
+      end
+
       attr_reader :parser, :config_updater, :loader, :help_generator,
                   :version_string, :debug_checker, :rebooter,
                   :happy_exiter_class, :sad_exiter_class
 
       # rubocop:disable Metrics/ParameterLists
       def initialize(parser: Params::Parser.new,
-                     config_updater: Config.instance.method(:update!),
+                     config_updater: Config.method(:update!),
                      loader: KexecPatchingLoader.new,
                      help_generator: Params::HelpGenerator.new,
                      version_string: "cryptreboot #{VERSION}",
-                     debug_checker: -> { Config.instance.debug }, # because config is updated after initialization
+                     debug_checker: LazyConfig.debug,
                      rebooter: Rebooter.new,
                      happy_exiter_class: HappyExiter,
                      sad_exiter_class: SadExiter)

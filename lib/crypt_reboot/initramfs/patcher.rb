@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'fileutils'
+
 module CryptReboot
   module Initramfs
     # Yield path to initramfs patched with files_spec.
@@ -30,7 +32,10 @@ module CryptReboot
                      writer: FilesWriter.new,
                      archiver: Archiver.new,
                      concatenator: Concatenator.new,
-                     saver: FileSaver.new(Config.instance.patch_save_path))
+                     saver: lambda { |file|
+                              dir = Config.patch_save_path
+                              FileUtils.cp(file, dir) if dir
+                            })
         @temp_provider = temp_provider
         @writer = writer
         @archiver = archiver

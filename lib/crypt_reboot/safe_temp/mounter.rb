@@ -21,9 +21,9 @@ module CryptReboot
 
       def initialize(runner: Runner::NoResult.new,
                      mounter: lambda { |dir|
-                                runner.call(Config.instance.mount_path, '-t', 'tmpfs', '-o', 'mode=700', 'none', dir)
+                                runner.call(Config.mount_path, '-t', 'tmpfs', '-o', 'mode=700', 'none', dir)
                               },
-                     umounter: ->(dir) { runner.call(Config.instance.umount_path, dir) })
+                     umounter: ->(dir) { runner.call(Config.umount_path, dir) })
         @runner = runner
         @mounter = mounter
         @umounter = umounter

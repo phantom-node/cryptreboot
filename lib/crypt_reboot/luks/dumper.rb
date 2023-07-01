@@ -12,12 +12,16 @@ module CryptReboot
 
       private
 
-      attr_reader :binary, :runner, :parsers
+      def binary
+        lazy_binary.call
+      end
 
-      def initialize(binary: Config.instance.cryptsetup_path,
+      attr_reader :lazy_binary, :runner, :parsers
+
+      def initialize(lazy_binary: LazyConfig.cryptsetup_path,
                      runner: Runner::Lines.new,
                      parsers: { 'LUKS2' => LuksV2Parser.new, 'LUKS1' => LuksV1Parser.new })
-        @binary = binary
+        @lazy_binary = lazy_binary
         @runner = runner
         @parsers = parsers
       end

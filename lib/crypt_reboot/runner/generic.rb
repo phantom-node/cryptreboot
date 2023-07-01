@@ -10,8 +10,7 @@ module CryptReboot
 
       def call(*args, input: nil, output_file: nil, binary: false)
         options = build_options(input, output_file, binary)
-        adjusted_args = front_args + args
-        cmd.send(run_method, *adjusted_args, **options)
+        cmd.send(run_method, *args, **options)
       rescue exceptions[:exit] => e
         raise ExitError, cause: e
       rescue exceptions[:not_found] => e
@@ -26,18 +25,20 @@ module CryptReboot
         end
       end
 
-      attr_reader :cmd, :run_method, :front_args, :exceptions
+      def cmd
+        lazy_cmd.call
+      end
 
-      def initialize(cmd: TTY::Command.new(printer: Config.instance.debug ? :pretty : :null),
+      attr_reader :lazy_cmd, :run_method, :exceptions
+
+      def initialize(lazy_cmd: -> { TTY::Command.new(uuid: false, printer: Config.debug ? :pretty : :null) },
                      run_method: :run,
-                     sudo: false,
                      exceptions: {
                        exit: TTY::Command::ExitError,
                        not_found: Errno::ENOENT
                      })
-        @cmd = cmd
+        @lazy_cmd = lazy_cmd
         @run_method = run_method
-        @front_args = sudo ? ['sudo', '--'] : []
         @exceptions = exceptions
       end
     end

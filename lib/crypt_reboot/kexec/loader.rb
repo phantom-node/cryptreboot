@@ -14,11 +14,15 @@ module CryptReboot
 
       private
 
-      attr_reader :tool, :runner
+      def tool
+        lazy_tool.call
+      end
 
-      def initialize(tool: Config.instance.kexec_path,
+      attr_reader :lazy_tool, :runner
+
+      def initialize(lazy_tool: LazyConfig.kexec_path,
                      runner: Runner::NoResult.new)
-        @tool = tool
+        @lazy_tool = lazy_tool
         @runner = runner
       end
     end

@@ -8,12 +8,10 @@ module CryptReboot
       # Definition of options, flags, help and other CLI related things
       class Definition
         include TTY::Option
-        CONFIG = Config.instance
-
         option :kernel do
           long '--kernel path'
           desc 'Path to the kernel you want to reboot into'
-          default CONFIG.kernel
+          default Config.kernel
         end
 
         option :cmdline do
@@ -24,7 +22,7 @@ module CryptReboot
         option :initramfs do
           long '--initramfs path'
           desc 'Path to the initramfs to be used by loaded kernel'
-          default CONFIG.initramfs
+          default Config.initramfs
         end
 
         option :patch_save_path do
@@ -37,49 +35,49 @@ module CryptReboot
         option :cat_path do
           long '--cat-path path'
           desc 'Path to `cat` command'
-          default CONFIG.cat_path
+          default Config.cat_path
         end
 
         option :cpio_path do
           long '--cpio-path path'
           desc 'Path to `cpio` command'
-          default CONFIG.cpio_path
+          default Config.cpio_path
         end
 
         option :unmkinitramfs_path do
           long '--unmkinitramfs-path path'
           desc 'Path to `unmkinitramfs` command'
-          default CONFIG.unmkinitramfs_path
+          default Config.unmkinitramfs_path
         end
 
         option :kexec_path do
           long '--kexec-path path'
           desc 'Path to `kexec` command'
-          default CONFIG.kexec_path
+          default Config.kexec_path
         end
 
         option :cryptsetup_path do
           long '--cryptsetup-path path'
           desc 'Path to `cryptsetup` command'
-          default CONFIG.cryptsetup_path
+          default Config.cryptsetup_path
         end
 
         option :reboot_path do
           long '--reboot-path path'
           desc 'Path to `reboot` command'
-          default CONFIG.cryptsetup_path
+          default Config.cryptsetup_path
         end
 
         option :mount_path do
           long '--mount-path path'
           desc 'Path to `mount` command'
-          default CONFIG.mount_path
+          default Config.mount_path
         end
 
         option :umount_path do
           long '--umount-path path'
           desc 'Path to `umount` command'
-          default CONFIG.umount_path
+          default Config.umount_path
         end
 
         # Flags
