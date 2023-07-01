@@ -65,7 +65,7 @@ module CryptReboot
         option :reboot_path do
           long '--reboot-path path'
           desc 'Path to `reboot` command'
-          default Config.cryptsetup_path
+          default Config.reboot_path
         end
 
         option :mount_path do
