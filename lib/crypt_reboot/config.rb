@@ -8,8 +8,8 @@ module CryptReboot
     include Singleton
 
     class << self
-      def method_missing(method_name, ...)
-        instance.respond_to?(method_name) ? instance.send(method_name, ...) : super
+      def method_missing(method_name, *args, **kwargs, &block)
+        instance.respond_to?(method_name) ? instance.send(method_name, *args, **kwargs, &block) : super
       end
 
       def respond_to_missing?(name, *_, **_)
