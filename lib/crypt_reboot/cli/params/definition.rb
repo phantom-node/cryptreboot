@@ -34,49 +34,49 @@ module CryptReboot
 
         option :cat_path do
           long '--cat-path path'
-          desc 'Path to `cat` command'
+          desc 'Path to "cat" command'
           default Config.cat_path
         end
 
         option :cpio_path do
           long '--cpio-path path'
-          desc 'Path to `cpio` command'
+          desc 'Path to "cpio" command'
           default Config.cpio_path
         end
 
         option :unmkinitramfs_path do
           long '--unmkinitramfs-path path'
-          desc 'Path to `unmkinitramfs` command'
+          desc 'Path to "unmkinitramfs" command'
           default Config.unmkinitramfs_path
         end
 
         option :kexec_path do
           long '--kexec-path path'
-          desc 'Path to `kexec` command'
+          desc 'Path to "kexec" command'
           default Config.kexec_path
         end
 
         option :cryptsetup_path do
           long '--cryptsetup-path path'
-          desc 'Path to `cryptsetup` command'
+          desc 'Path to "cryptsetup" command'
           default Config.cryptsetup_path
         end
 
         option :reboot_path do
           long '--reboot-path path'
-          desc 'Path to `reboot` command'
+          desc 'Path to "reboot" command'
           default Config.reboot_path
         end
 
         option :mount_path do
           long '--mount-path path'
-          desc 'Path to `mount` command'
+          desc 'Path to "mount" command'
           default Config.mount_path
         end
 
         option :umount_path do
           long '--umount-path path'
-          desc 'Path to `umount` command'
+          desc 'Path to "umount" command'
           default Config.umount_path
         end
 
@@ -97,13 +97,13 @@ module CryptReboot
         flag :version do
           short '-v'
           long '--version'
-          desc 'Print version'
+          desc 'Print version and exit'
         end
 
         flag :help do
           short '-h'
           long '--help'
-          desc 'Print usage'
+          desc 'Print usage and exit'
         end
       end
 
