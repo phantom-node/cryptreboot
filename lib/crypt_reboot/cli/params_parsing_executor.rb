@@ -52,7 +52,7 @@ module CryptReboot
                      config_updater: Config.method(:update!),
                      loader: KexecPatchingLoader.new,
                      help_generator: Params::HelpGenerator.new,
-                     version_string: "cryptreboot #{VERSION}",
+                     version_string: "#{PROGRAM_NAME} #{VERSION}",
                      debug_checker: LazyConfig.debug,
                      rebooter: Rebooter.new,
                      happy_exiter_class: HappyExiter,

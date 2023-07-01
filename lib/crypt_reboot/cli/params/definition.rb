@@ -6,8 +6,36 @@ module CryptReboot
   module Cli
     module Params
       # Definition of options, flags, help and other CLI related things
+      # rubocop:disable Metrics/ClassLength
       class Definition
         include TTY::Option
+
+        usage do
+          header 'Reboot for systems using encrypted root.'
+
+          program PROGRAM_NAME
+          no_command
+
+          desc 'It asks for a password and reboots the system, automatically unlocking ' \
+               'the drive on startup using in-memory initramfs patching and kexec. ' \
+               'Without explicit consent, no secrets are stored on disk, even temporarily.',
+               '',
+               "By default it uses current kernel command line, \"#{Config.kernel}\" as " \
+               "kernel and \"#{Config.initramfs}\" as initramfs.",
+               '',
+               'Requires root permissions.'
+
+          example 'Normal usage:',
+                  "$ sudo #{PROGRAM_NAME}"
+          example 'Reboot into custom kernel:',
+                  "$ sudo #{PROGRAM_NAME} --kernel /boot/vmlinuz.old --initramfs /boot/initrd.old"
+          example 'Specify custom kernel options:',
+                  "$ sudo #{PROGRAM_NAME} --cmdline \"root=UUID=d0...a2 ro nomodeset acpi=off\""
+          example 'Prepare to reboot and perform it manually, passing custom options:',
+                  "$ sudo #{PROGRAM_NAME} --prepare-only",
+                  '$ sudo reboot --no-wall --no-wtmp'
+        end
+
         option :kernel do
           long '--kernel path'
           desc 'Path to the kernel you want to reboot into'
@@ -106,6 +134,7 @@ module CryptReboot
           desc 'Print usage and exit'
         end
       end
+      # rubocop:enable Metrics/ClassLength
 
       # This class contains code from external source,
       # do not expose it anywhere outside of the module
