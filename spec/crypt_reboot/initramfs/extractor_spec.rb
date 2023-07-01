@@ -3,7 +3,13 @@
 module CryptReboot
   module Initramfs
     RSpec.describe Extractor do
-      subject(:extractor) { described_class.new(runner: fake_runner) }
+      subject(:extractor) do
+        described_class.new(runner: fake_runner,
+                            logger: logger,
+                            message: 'extracting')
+      end
+
+      let(:logger) { spy }
 
       let :fake_runner do
         ->(_tool, _initramfs, dir) { File.open(test_file_path(dir), 'w') { 0 } }
@@ -17,6 +23,11 @@ module CryptReboot
         extractor.call('dummy_initramfs') do |dir|
           expect(File).to exist(test_file_path(dir))
         end
+      end
+
+      it 'displays message' do
+        extractor.call('dummy_initramfs') {}
+        expect(logger).to have_received(:call).with('extracting')
       end
 
       it 'cleans up' do
