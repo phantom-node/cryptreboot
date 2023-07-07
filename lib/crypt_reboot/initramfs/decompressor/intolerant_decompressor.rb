@@ -51,7 +51,7 @@ module CryptReboot
         def initialize(lazy_unmkinitramfs: LazyConfig.unmkinitramfs_path,
                        lazy_strace: LazyConfig.strace_path,
                        lazy_grep: LazyConfig.grep_path,
-                       runner: Runner::NoResult.new)
+                       runner: Runner::Lines.new)
           @lazy_unmkinitramfs = lazy_unmkinitramfs
           @lazy_strace = lazy_strace
           @lazy_grep = lazy_grep
