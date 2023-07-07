@@ -7,7 +7,8 @@ module CryptReboot
 
     attr_reader :initramfs, :cmdline, :kernel, :patch_save_path, :cat_path, :cpio_path,
                 :unmkinitramfs_path, :kexec_path, :cryptsetup_path, :reboot_path,
-                :mount_path, :umount_path, :debug, :prepare_only
+                :mount_path, :umount_path, :strace_path, :grep_path,
+                :debug, :prepare_only, :allow_lz4
 
     def update!(**settings)
       settings.each do |name, value|
@@ -38,10 +39,13 @@ module CryptReboot
       @reboot_path = 'reboot'
       @mount_path = 'mount'
       @umount_path = 'umount'
+      @strace_path = 'strace'
+      @grep_path = 'grep'
 
       # Flags
       @debug = false
       @prepare_only = false
+      @allow_lz4 = false
     end
     # rubocop:enable Metrics/MethodLength
   end

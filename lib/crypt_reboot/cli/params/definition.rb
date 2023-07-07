@@ -82,6 +82,12 @@ module CryptReboot
           default Config.cryptsetup_path
         end
 
+        option :grep_path do
+          long '--grep-path path'
+          desc 'Path to "grep" command'
+          default Config.grep_path
+        end
+
         option :kexec_path do
           long '--kexec-path path'
           desc 'Path to "kexec" command'
@@ -100,6 +106,12 @@ module CryptReboot
           default Config.reboot_path
         end
 
+        option :strace_path do
+          long '--strace-path path'
+          desc 'Path to "strace" command'
+          default Config.strace_path
+        end
+
         option :umount_path do
           long '--umount-path path'
           desc 'Path to "umount" command'
@@ -113,6 +125,13 @@ module CryptReboot
         end
 
         # Flags
+
+        flag :allow_lz4 do
+          long '--allow-lz4'
+          desc 'Proceed with LZ4 compressed initramfs risking reboot to fail; ' \
+               'instead of using this flag, it is recommended to change initramfs ' \
+               'compression algorithm to something else'
+        end
 
         flag :prepare_only do
           short '-p'

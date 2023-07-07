@@ -9,27 +9,21 @@ module CryptReboot
       def call(filename)
         tmp_maker.call do |dir|
           logger.call message
-          runner.call(tool, filename, dir)
+          decompressor.call(filename, dir)
           yield dir
         end
       end
 
       private
 
-      attr_reader :lazy_tool, :tmp_maker, :runner, :message, :logger
+      attr_reader :tmp_maker, :decompressor, :message, :logger
 
-      def tool
-        lazy_tool.call
-      end
-
-      def initialize(lazy_tool: LazyConfig.unmkinitramfs_path,
-                     tmp_maker: Dir.method(:mktmpdir),
-                     runner: Runner::NoResult.new,
+      def initialize(tmp_maker: Dir.method(:mktmpdir),
+                     decompressor: -> { Config.allow_lz4 ? TolerantDecompressor.new : IntolerantDecompressor.new },
                      message: 'Extracting initramfs... (in future versions it will run faster)',
                      logger: ->(msg) { warn msg })
-        @lazy_tool = lazy_tool
         @tmp_maker = tmp_maker
-        @runner = runner
+        @decompressor = decompressor
         @message = message
         @logger = logger
       end

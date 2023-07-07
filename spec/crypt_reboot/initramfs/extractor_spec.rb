@@ -4,15 +4,15 @@ module CryptReboot
   module Initramfs
     RSpec.describe Extractor do
       subject(:extractor) do
-        described_class.new(runner: fake_runner,
+        described_class.new(decompressor: fake_decompressor,
                             logger: logger,
                             message: 'extracting')
       end
 
       let(:logger) { spy }
 
-      let :fake_runner do
-        ->(_tool, _initramfs, dir) { File.open(test_file_path(dir), 'w') { 0 } }
+      let :fake_decompressor do
+        ->(_initramfs, dir) { File.open(test_file_path(dir), 'w') { 0 } }
       end
 
       def test_file_path(dir)
