@@ -22,7 +22,9 @@ module CryptReboot
           args = "#{filename.shellescape} #{dir.shellescape}"
           strace_command_line = "#{strace.shellescape} #{options} #{unmkinitramfs.shellescape} #{args}"
           grep_command_line = "#{grep.shellescape} --line-buffered lz4"
-          "#{strace_command_line} 2>&1 | #{grep_command_line}"
+          # guarantee at least 1 line of grep output, otherwise grep will return non-zero status
+          grep_fixer = 'echo lz4 \"-t\"'
+          "(#{grep_fixer}; #{strace_command_line}) 2>&1 | #{grep_command_line}"
         end
 
         def intolerable_tool_used?(lines)
