@@ -18,7 +18,7 @@ module CryptReboot
         private
 
         def prepare_command_line(filename, dir)
-          options = '--follow-forks --trace=execve --successful-only --signal=!all --silence=all'
+          options = '-f --trace=execve -z -qq --signal=\!all'
           args = "#{filename.shellescape} #{dir.shellescape}"
           strace_command_line = "#{strace.shellescape} #{options} #{unmkinitramfs.shellescape} #{args}"
           grep_command_line = "#{grep.shellescape} --line-buffered lz4"

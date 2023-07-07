@@ -21,15 +21,15 @@ module CryptReboot
           it 'executes correct command line' do
             decompressor.call('/boot/initrd.img', '/my/dir')
             expect(memo).to have_received(:call)
-              .with('strace --follow-forks --trace=execve --successful-only ' \
-                    '--signal=!all --silence=all unmkinitramfs /boot/initrd.img /my/dir ' \
+              .with('strace -f --trace=execve -z -qq --signal=\!all ' \
+                    'unmkinitramfs /boot/initrd.img /my/dir ' \
                     '2>&1 | grep --line-buffered lz4')
           end
 
           it 'handles shell escaping' do
             decompressor.call(%(it's my "file" name), '/my|"nice/dir"')
             expect(memo).to have_received(:call)
-              .with('strace --follow-forks --trace=execve --successful-only --signal=!all --silence=all ' \
+              .with('strace -f --trace=execve -z -qq --signal=\!all ' \
                     "unmkinitramfs it\\'s\\ my\\ \\\"file\\\"\\ name /my\\|\\\"nice/dir\\\" " \
                     '2>&1 | grep --line-buffered lz4')
           end
