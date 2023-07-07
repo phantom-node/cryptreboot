@@ -4,7 +4,7 @@ module CryptReboot
   module Initramfs
     RSpec.describe Extractor do
       subject(:extractor) do
-        described_class.new(decompressor: fake_decompressor,
+        described_class.new(decompressor_factory: -> { fake_decompressor },
                             logger: logger,
                             message: 'extracting')
       end

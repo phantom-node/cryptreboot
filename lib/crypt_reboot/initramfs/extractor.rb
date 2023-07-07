@@ -16,14 +16,18 @@ module CryptReboot
 
       private
 
-      attr_reader :tmp_maker, :decompressor, :message, :logger
+      def decompressor
+        decompressor_factory.call
+      end
+
+      attr_reader :tmp_maker, :decompressor_factory, :message, :logger
 
       def initialize(tmp_maker: Dir.method(:mktmpdir),
-                     decompressor: -> { Config.allow_lz4 ? TolerantDecompressor.new : IntolerantDecompressor.new },
+                     decompressor_factory: Decompressor.new,
                      message: 'Extracting initramfs... (in future versions it will run faster)',
                      logger: ->(msg) { warn msg })
         @tmp_maker = tmp_maker
-        @decompressor = decompressor
+        @decompressor_factory = decompressor_factory
         @message = message
         @logger = logger
       end
