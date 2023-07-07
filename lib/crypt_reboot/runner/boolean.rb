@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'tty-command'
-
 module CryptReboot
   module Runner
     # Return true or false, depending if command succeeded or failed

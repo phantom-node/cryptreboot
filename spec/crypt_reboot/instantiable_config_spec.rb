@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'tmpdir'
-
 module CryptReboot
   RSpec.describe InstantiableConfig do
     subject(:config) { described_class.new }

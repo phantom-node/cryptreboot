@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'tmpdir'
-
 module CryptReboot
   RSpec.describe Rebooter do
     subject(:rebooter) { described_class.new(runner: runner, exiter: exiter) }
