@@ -32,8 +32,8 @@ module CryptReboot
         end
 
         def raise_exception
-          raise Lz4NotAllowed, 'Lz4 compression not allowed, change compression algorithm ' \
-                               'in initramfs.conf and regenerate initramfs image'
+          raise Lz4NotAllowed, 'LZ4 compression is not allowed, change the compression ' \
+                               'algorithm in initramfs.conf and regenerate the initramfs image'
         end
 
         def unmkinitramfs
