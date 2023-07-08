@@ -12,18 +12,18 @@ module CryptReboot
 
         # rubocop:disable Metrics/BlockLength
         usage do
-          header 'Reboot for systems using encrypted root.'
+          header 'Reboot for Linux systems with encrypted root partition.'
 
           program PROGRAM_NAME
           no_command
 
-          desc 'It asks for a password and reboots the system afterwards, automatically unlocking ' \
+          desc 'It asks for a password and reboots the system afterward, automatically unlocking ' \
                'the drive on startup using in-memory initramfs patching and kexec. ' \
                'Without explicit consent, no secrets are stored on disk, even temporarily.',
                '',
                'Useful when unlocking the drive at startup is difficult, such as on headless and remote systems.',
                '',
-               "By default it uses current kernel command line, \"#{Config.kernel}\" as " \
+               "By default, it uses the current kernel command line, \"#{Config.kernel}\" as " \
                "kernel and \"#{Config.initramfs}\" as initramfs.",
                '',
                'Requires root permissions.'
