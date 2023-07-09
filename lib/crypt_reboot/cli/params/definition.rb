@@ -34,14 +34,15 @@ module CryptReboot
                   "$ sudo #{PROGRAM_NAME} --kernel /boot/vmlinuz.old --initramfs /boot/initrd.old"
           example 'Specify custom kernel options:',
                   "$ sudo #{PROGRAM_NAME} --cmdline \"root=UUID=d0...a2 ro nomodeset acpi=off\""
-          example 'Prepare to reboot and perform it manually later, passing custom flags:',
+          example 'Prepare to reboot and perform it manually later:',
                   "$ sudo #{PROGRAM_NAME} --prepare-only",
+                  '$ sleep 3600 # do anything else in-between',
                   '$ sudo reboot --no-wall --no-wtmp'
 
-          footer 'If you want to report a bug or get support, please visit the project page:',
+          footer 'To report a bug, get support or contribute, please visit the project page:',
                  'https://phantomno.de/cryptreboot',
                  '',
-                 'Thank you for using this utility. Happy rebooting!'
+                 "Thank you for using #{PROGRAM_NAME}. Happy rebooting!"
         end
         # rubocop:enable Metrics/BlockLength
 
@@ -108,7 +109,7 @@ module CryptReboot
 
         option :strace_path do
           long '--strace-path path'
-          desc 'Path to "strace" command'
+          desc 'Path to "strace" command, which is used for LZ4 usage detection'
           default Config.strace_path
         end
 
@@ -126,11 +127,14 @@ module CryptReboot
 
         # Flags
 
-        flag :allow_lz4 do
-          long '--allow-lz4'
-          desc 'Proceed with LZ4 compressed initramfs risking reboot to fail; ' \
-               'instead of using this flag, it is recommended to change initramfs ' \
-               'compression algorithm to something else'
+        flag :skip_lz4_check do
+          long '--skip-lz4-check'
+          desc 'Do not check if initramfs is compressed with LZ4 algorithm. ' \
+               'If you use different compression, it will make initramfs ' \
+               'extraction much quicker. But if your initramfs use LZ4 you risk ' \
+               'you will need to manually unlock your disk at startup. ' \
+               'See the README file to learn how to change the compression ' \
+               'algorithm to a more robust one.'
         end
 
         flag :prepare_only do
@@ -148,7 +152,9 @@ module CryptReboot
         option :patch_save_path do
           long '--save-patch path'
           desc 'Save initramfs patch to file for debug purposes. ' \
-               'WARNING: it contains encryption keys, proceed with caution!'
+               'WARNING: it contains encryption keys, you are responsible for ' \
+               'their safe disposal, which may be difficult after the file comes ' \
+               'into contact with the disk. Deleting the file alone may not be enough.'
         end
 
         flag :version do

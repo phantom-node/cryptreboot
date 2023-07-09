@@ -8,12 +8,12 @@ module CryptReboot
       end
 
       it 'returns tolerant compressor' do
-        decompressor = factory.call(allow_lz4: true)
+        decompressor = factory.call(skip_lz4_check: true)
         expect(decompressor).to be_instance_of(Decompressor::TolerantDecompressor)
       end
 
       it 'returns intolerant compressor' do
-        decompressor = factory.call(allow_lz4: false)
+        decompressor = factory.call(skip_lz4_check: false)
         expect(decompressor).to be_instance_of(Decompressor::IntolerantDecompressor)
       end
     end

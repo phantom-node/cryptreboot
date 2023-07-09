@@ -54,7 +54,7 @@ If you get:
 
 it means initramfs was compressed using LZ4 algorithm, which seems to have issues with concatenating initramfs images.
 
-In case you are 100% sure LZ4 won't cause problems, you can use `--allow-lz4` command line flag. This will make the error message go away, but you risk automatic disk unlocking at startup to fail randomly.
+In case you are 100% sure LZ4 won't cause problems, you can use `--skip-lz4-check` command line flag. This will make the error message go away, but you risk automatic disk unlocking at startup to fail randomly.
 
 Instead, the recommended approach is to change the compression algorithm in `/etc/initramfs-tools/initramfs.conf` file. Look for `COMPRESS` and set it to some other value such as `gzip` (the safe choice), or `zstd` (the best compression, but your kernel and initramfs-tools need to support it).
 

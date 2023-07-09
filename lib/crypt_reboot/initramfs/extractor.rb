@@ -24,7 +24,7 @@ module CryptReboot
 
       def initialize(tmp_maker: Dir.method(:mktmpdir),
                      decompressor_factory: Decompressor.new,
-                     message: 'Extracting initramfs... (in future versions it will run faster)',
+                     message: 'Extracting initramfs... To speed things up, future versions will employ cache.',
                      logger: ->(msg) { warn msg })
         @tmp_maker = tmp_maker
         @decompressor_factory = decompressor_factory
