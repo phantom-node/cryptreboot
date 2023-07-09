@@ -136,6 +136,13 @@ This project is intended to be a safe, welcoming space for collaboration,
 and contributors are expected to adhere to the
 [code of conduct](https://github.com/phantom-node/cryptreboot/blob/master/CODE_OF_CONDUCT.md).
 
+## Author
+
+My name is Paweł Pokrywka and I'm the author of cryptreboot.
+
+If you want to contact me or get to know me better, check out
+[my blog](https://blog.pawelpokrywka.com).
+
 ## License
 
 The software is available as open source under the terms of the
