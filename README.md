@@ -19,9 +19,9 @@ Fancy methods such as using an external USB with a passphrase file will fail.
 
 ## Compatible Linux distributions
 
-Currently cryptreboot depends on `initramfs-tools` which is available in
+Currently, cryptreboot depends on `initramfs-tools` package which is available in
 Debian-based distributions. Therefore one should expect, this tool to work on
-Debian, Ubuntu, Linux Mint, Pop!_OS etc.
+Debian, Ubuntu, Linux Mint, Pop!_OS, etc.
 
 On the other hand, do not expect it to work on other distributions now.
 But support for them may come in upcoming versions.
@@ -31,7 +31,7 @@ Following distributions were tested by the author:
 - Ubuntu 20.04 LTS needs tiny adjustments to system settings,
   specifically [changing compression](#lz4-initramfs-compression) and
   [fixing systemd kexec support](#staged-kernel-not-being-executed-by-systemd)
-- ~~Ubuntu 18.04 LTS~~ is not supported (initramfs uses pre-crypttab format)
+- ~~Ubuntu 18.04 LTS~~ is not supported (initramfs uses *pre-crypttab* format)
 - Pop!_OS 22.04 LTS
 
 If you have successfully run cryptreboot on another distribution,
@@ -50,7 +50,7 @@ probably already met:
 - `kexec` support in the kernel
 - `tmpfs` filesystem support in kernel
 - `cryptsetup` (if you use disk encryption, it should be installed)
-- `systemd` or other way to guarantee staged kernel is executed on reboot
+- `systemd` or another way to guarantee staged kernel is executed on reboot
 - `strace` (not required if `--skip-lz4-check` flag is specified)
 
 ## Installation
@@ -64,7 +64,7 @@ Make sure the required software is installed, then install the gem by executing:
 Cryptreboot performs operations normally only available to the root user,
 so it is suggested to use sudo or a similar utility.
 
-In order to perform a reboot type:
+To perform a reboot type:
 
     $ sudo cryptreboot
 
@@ -81,7 +81,7 @@ If you get:
 > LZ4 compression is not allowed, change the compression algorithm in
 initramfs.conf and regenerate the initramfs image
 
-it means initramfs was compressed using LZ4 algorithm, which seems to
+it means initramfs was compressed using the LZ4 algorithm, which seems to
 have issues with concatenating initramfs images.
 
 In case you are 100% sure LZ4 won't cause problems, you can use
@@ -105,7 +105,7 @@ That's it.
 
 Resources related to the issue:
 - [Appending files to initramfs image - reliable? (StackExchange)](https://unix.stackexchange.com/a/737219)
-- [What is the correct frame format for linux (Lz4 issue)](https://github.com/lz4/lz4/issues/956)
+- [What is the correct frame format for Linux (Lz4 issue)](https://github.com/lz4/lz4/issues/956)
 - [Initramfs unpacking failed (Ubuntu bug report)](https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1835660)
 
 ### Staged kernel not being executed by systemd
@@ -116,8 +116,8 @@ reboot, it may suggest staged kernel is not being executed by the
 
 The solution I found is to execute `kexec -e` instead of
 `systemctl --force kexec` when the system is ready for a reboot.
-In order to do that `systemd-kexec.service` has to be modified.
-Let's use `systemd drop-in` for that:
+To do that `systemd-kexec.service` has to be modified.
+To make the change minimal, let's use `systemd drop-in` for that:
 
     $ sudo mkdir -p /etc/systemd/system/systemd-kexec.service.d/
     $ echo -e "[Service]\nExecStart=\nExecStart=kexec -e" | sudo tee /etc/systemd/system/systemd-kexec.service.d/override.conf
