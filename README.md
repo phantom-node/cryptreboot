@@ -17,13 +17,25 @@ and `/boot/initrd.img` as initramfs.
 Will work properly when using standard passphrase-based disk unlocking.
 Fancy methods such as using an external USB with a passphrase file will fail.
 
-## Tested operating systems
+## Compatible Linux distributions
 
-- Ubuntu 22.04 LTS works out of the box
-- Ubuntu 20.04 LTS needs small adjustments to system settings,
+Currently cryptreboot depends on `initramfs-tools` which is available in
+Debian-based distributions. Therefore one should expect, this tool to work on
+Debian, Ubuntu, Linux Mint, Pop!_OS etc.
+
+On the other hand, do not expect it to work on other distributions now.
+But support for them may come in upcoming versions.
+
+Following distributions were tested by the author:
+- Ubuntu 22.04 LTS
+- Ubuntu 20.04 LTS needs tiny adjustments to system settings,
   specifically [changing compression](#lz4-initramfs-compression) and
   [fixing systemd kexec support](#staged-kernel-not-being-executed-by-systemd)
 - ~~Ubuntu 18.04 LTS~~ is not supported (initramfs uses pre-crypttab format)
+- Pop!_OS 22.04 LTS
+
+If you have successfully run cryptreboot on another distribution,
+please contact me and I will update the list.
 
 ## Requirements
 
@@ -142,6 +154,8 @@ My name is Paweł Pokrywka and I'm the author of cryptreboot.
 
 If you want to contact me or get to know me better, check out
 [my blog](https://blog.pawelpokrywka.com).
+
+Thank you for your interest in this project :)
 
 ## License
 
