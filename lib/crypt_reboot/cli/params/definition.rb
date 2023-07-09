@@ -83,9 +83,9 @@ module CryptReboot
         flag :skip_lz4_check do
           long '--skip-lz4-check'
           desc 'Do not check if initramfs is compressed with LZ4 algorithm. ' \
-               'If you use different compression, it will make initramfs ' \
-               'extraction much quicker. But if your initramfs use LZ4 you risk ' \
-               'you will need to manually unlock your disk at startup. ' \
+               'If you use different compression and specify this flag, it will make ' \
+               'initramfs extraction much faster. But if your initramfs use ' \
+               'LZ4 you risk you will need to manually unlock your disk on startup. ' \
                'See the README file to learn how to change the compression ' \
                'algorithm to a more robust one.'
         end
