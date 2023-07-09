@@ -1,7 +1,8 @@
 # Cryptreboot
 
 Convenient reboot for Linux systems with encrypted root partition.
-Just type `cryptreboot` instead of `reboot`.
+
+> Just type `cryptreboot` instead of `reboot`.
 
 It asks for a passphrase and reboots the system afterward, automatically
 unlocking the drive on startup using in-memory initramfs patching and kexec.
@@ -29,15 +30,16 @@ Fancy methods such as using an external USB with a passphrase file will fail.
 You need to ensure those are installed:
 - `ruby` >= 2.7
 - `kexec-tools`
-- `initramfs-tools` (installed by default in popular distributions)
+- `initramfs-tools` (other initramfs generators, such as `dracut` are
+  not supported yet)
 
-Other requirements are probably already installed, if you use recent,
-mainstream Linux distribution:
+If you use recent, mainstream Linux distribution, other requirements are
+probably already met:
 - `kexec` support in the kernel
 - `tmpfs` filesystem support in kernel
 - `cryptsetup` (if you use disk encryption, it should be installed)
-- `systemd`
-- `strace` (may be skipped)
+- `systemd` or other way to guarantee staged kernel is executed on reboot
+- `strace` (not required if `--skip-lz4-check` flag is specified)
 
 ## Installation
 
@@ -77,7 +79,7 @@ go away, but you risk automatic disk unlocking at startup to fail randomly.
 Instead, the recommended approach is to change the compression algorithm
 in `/etc/initramfs-tools/initramfs.conf` file. Look for `COMPRESS` and
 set it to some other value such as `gzip` (the safe choice), or `zstd`
-(the best compression, but your kernel and initramfs-tools need to support it).
+(the best compression, but your kernel and `initramfs-tools` need to support it).
 
 Here is a one-liner to change compression to `gzip`:
 
