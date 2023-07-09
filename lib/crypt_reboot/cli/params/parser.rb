@@ -11,15 +11,17 @@ module CryptReboot
           params = definition.parse(raw_params).params
           raise ParseError, params.errors.summary unless params.valid?
 
-          params.to_h
+          flattener.call params.to_h
         end
 
         private
 
-        attr_reader :definition
+        attr_reader :definition, :flattener
 
-        def initialize(definition: Definition.new)
+        def initialize(definition: Definition.new,
+                       flattener: Flattener.new(key: 'paths', suffix: '_path'))
           @definition = definition
+          @flattener = flattener
         end
       end
     end

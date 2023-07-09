@@ -13,6 +13,11 @@ module CryptReboot
           expect(params).to include({ kernel: 'kernel1', initramfs: 'initramfs1', cmdline: 'a b c' })
         end
 
+        it 'parses flattened params' do
+          params = parser.call(['--tool', 'cat:/usr/bin/cat', '--tool', 'cpio:/usr/bin/cpio'])
+          expect(params).to include({ cat_path: '/usr/bin/cat', cpio_path: '/usr/bin/cpio' })
+        end
+
         it 'gets defaults' do
           params = parser.call([])
           expect(params).to include({ kernel: '/boot/vmlinuz' })
