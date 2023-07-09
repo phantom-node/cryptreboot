@@ -26,7 +26,8 @@ module CryptReboot
                "By default, it uses the current kernel command line, \"#{Config.kernel}\" as " \
                "kernel and \"#{Config.initramfs}\" as initramfs.",
                '',
-               'Requires root permissions.'
+               'It performs operations normally only available to the root user, so it is suggested to use ' \
+               'sudo or a similar utility.'
 
           example 'Normal usage:',
                   "$ sudo #{PROGRAM_NAME}"
