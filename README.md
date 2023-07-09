@@ -1,5 +1,7 @@
 # Cryptreboot
 
+[![Gem Version](https://badge.fury.io/rb/crypt_reboot.svg)](https://badge.fury.io/rb/crypt_reboot)
+
 Convenient reboot for Linux systems with encrypted root partition.
 
 > Just type `cryptreboot` instead of `reboot`.
