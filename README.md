@@ -57,9 +57,9 @@ probably already met:
 
 ## Installation
 
-Make sure the required software is installed, then install the gem by executing:
+Make sure the required software is installed, then install the gem system-wide by executing:
 
-    $ gem install crypt_reboot
+    $ sudo gem install crypt_reboot
 
 ## Usage
 
