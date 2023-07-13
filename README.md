@@ -29,12 +29,13 @@ On the other hand, do not expect it to work on other distributions now.
 But support for them may come in upcoming versions.
 
 Following distributions were tested by the author:
+- Debian 12 needs [symlinks for kernel and initramfs](#no-symlinks-to-most-recent-kernel-and-initramfs)
+- Pop!_OS 22.04 LTS
 - Ubuntu 22.04 LTS
 - Ubuntu 20.04 LTS needs tiny adjustments to system settings,
   specifically [changing compression](#lz4-initramfs-compression) and
   [fixing systemd kexec support](#staged-kernel-not-being-executed-by-systemd)
 - ~~Ubuntu 18.04 LTS~~ is not supported (initramfs uses *pre-crypttab* format)
-- Pop!_OS 22.04 LTS
 
 If you have successfully run cryptreboot on another distribution,
 please contact me and I will update the list.
@@ -129,6 +130,26 @@ That should work.
 To cancel the change, remove the file:
 
     $ sudo rm /etc/systemd/system/systemd-kexec.service.d/override.conf
+
+### No symlinks to most recent kernel and initramfs
+
+By default cryptreboot looks for kernel in `/boot/vmlinuz` and for initramfs
+in `/boot/initrd.img`. If those files are missing in your Linux distribution,
+cryptreboot will fail, unless you use `--kernel` and `--initramfs` command line
+options.
+
+    $ sudo cryptreboot --kernel /boot/vmlinuz-`uname -r` --initramfs /boot/initrd.img-`uname -r`
+
+If you don't want to specify options every time you reboot, add symlinks to
+the currently running kernel and initramfs:
+
+    $ cd /boot
+    $ sudo ln -sf vmlinuz-`uname -r` vmlinuz
+    $ sudo ln -sf initrd.img-`uname -r` initrd.img
+
+Unfortunately, you need to rerun it after each kernel upgrade, otherwise,
+cryptreboot is going to boot the old kernel.
+Upcoming versions of cryptreboot will offer better solutions.
 
 ## Development
 
