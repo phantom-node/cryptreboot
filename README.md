@@ -28,7 +28,7 @@ Debian, Ubuntu, Linux Mint, Pop!_OS, etc.
 On the other hand, do not expect it to work on other distributions now.
 But support for them may come in upcoming versions.
 
-Following distributions were tested by the author:
+Following distributions were tested by the author on AMD64 machine:
 - Debian 12 needs [symlinks for kernel and initramfs](#no-symlinks-to-most-recent-kernel-and-initramfs)
 - Pop!_OS 22.04 LTS
 - Ubuntu 22.04 LTS
