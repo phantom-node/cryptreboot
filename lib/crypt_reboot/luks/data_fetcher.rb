@@ -4,10 +4,10 @@ module CryptReboot
   module Luks
     # Fetch LUKS data including key (user will be asked for passphrase)
     class DataFetcher
-      def call(headevice)
+      def call(headevice, target)
         version = detector.call(headevice)
         data = dumper.call(headevice, version)
-        pass = asker.call("Enter passphrase to unlock #{headevice}: ")
+        pass = asker.call("Please unlock disk #{target}: ")
         key = key_fetcher.call(headevice, pass)
         data.with_key(key)
       end

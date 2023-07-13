@@ -15,7 +15,7 @@ module CryptReboot
     end
 
     let :fetcher do
-      lambda { |headevice|
+      lambda { |headevice, _target|
         keys = {
           '/dev/source1' => 'key1',
           '/dev/source2' => 'key2',

@@ -21,7 +21,7 @@ module CryptReboot
         end
 
         it 'fetches data' do
-          data = fetcher.call('spec/fixtures/luks_headers/v2.bin')
+          data = fetcher.call('spec/fixtures/luks_headers/v2.bin', 'v2')
           expect(data).to eq(expected_data)
         end
       end
@@ -37,7 +37,7 @@ module CryptReboot
         end
 
         it 'fetches data' do
-          data = fetcher.call('spec/fixtures/luks_headers/v1.bin')
+          data = fetcher.call('spec/fixtures/luks_headers/v1.bin', 'v1')
           expect(data).to eq(expected_data)
         end
       end

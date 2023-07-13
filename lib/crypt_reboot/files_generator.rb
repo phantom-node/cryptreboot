@@ -6,10 +6,9 @@ module CryptReboot
     def call(entries, base_dir)
       files = {}
       modified_entries = entries.map do |entry|
-        headevice = entry.headevice(header_prefix: base_dir)
-        next entry unless luks?(headevice)
+        next entry unless luks?(entry, base_dir)
 
-        data = luks_data_fetcher.call(headevice)
+        data = fetch_data(entry, base_dir)
         keyfile = keyfile_locator.call(entry.target)
         files[keyfile] = data.key
         entry_converter.call(entry, data, keyfile)
@@ -22,8 +21,14 @@ module CryptReboot
     CRYPTAB_PATH = '/cryptroot/crypttab'
     private_constant :CRYPTAB_PATH
 
-    def luks?(headevice)
+    def luks?(entry, base_dir)
+      headevice = entry.headevice(header_prefix: base_dir)
       luks_checker.call(headevice)
+    end
+
+    def fetch_data(entry, base_dir)
+      headevice = entry.headevice(header_prefix: base_dir)
+      luks_data_fetcher.call(headevice, entry.target)
     end
 
     attr_reader :keyfile_locator, :entry_converter, :serializer,
