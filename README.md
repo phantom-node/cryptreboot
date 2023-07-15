@@ -29,8 +29,10 @@ On the other hand, do not expect it to work on other distributions now.
 But support for them may come in upcoming versions.
 
 Following distributions were tested by the author on the AMD64 machine:
+- DappNode 0.2.75 is based on Debian 12, see below
 - Debian 12 needs [symlinks for kernel and initramfs](#no-symlinks-to-most-recent-kernel-and-initramfs)
 - Pop!_OS 22.04 LTS
+- Ubuntu 23.04
 - Ubuntu 22.04 LTS
 - Ubuntu 20.04 LTS needs tiny adjustments to system settings,
   specifically [changing compression](#lz4-initramfs-compression) and
@@ -55,6 +57,13 @@ probably already met:
 - `cryptsetup` (if you use disk encryption, it should be installed)
 - `systemd` or another way to guarantee staged kernel is executed on reboot
 - `strace` (not required if `--skip-lz4-check` flag is specified)
+
+If you use Debian-based distribution, use this command to install required packages:
+
+    $ sudo apt install --no-install-recommends cryptsetup-initramfs kexec-tools ruby strace systemd
+
+When asked if kexec should handle reboots, answer `yes` (however the answer probably
+doesn't matter for cryptreboot to work).
 
 ## Installation
 
