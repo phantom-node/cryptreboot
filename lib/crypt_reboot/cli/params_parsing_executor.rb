@@ -8,7 +8,7 @@ module CryptReboot
         locker.call
         params = parser.call(raw_params)
         handle_action_params!(params) or configure_and_exec(params)
-      rescue StandardError => e
+      rescue StandardError, Interrupt => e
         raise if debug?
 
         sad_exiter_class.new(error_message(e))
