@@ -5,6 +5,7 @@ module CryptReboot
     # Interprets parameters, executes everything and returns callable object
     class ParamsParsingExecutor
       def call(raw_params)
+        locker.call
         params = parser.call(raw_params)
         handle_action_params!(params) or configure_and_exec(params)
       rescue StandardError => e
@@ -45,7 +46,7 @@ module CryptReboot
 
       attr_reader :parser, :config_updater, :loader, :help_generator,
                   :version_string, :debug_checker, :rebooter,
-                  :happy_exiter_class, :sad_exiter_class
+                  :happy_exiter_class, :sad_exiter_class, :locker
 
       # rubocop:disable Metrics/ParameterLists
       def initialize(parser: Params::Parser.new,
@@ -56,7 +57,8 @@ module CryptReboot
                      debug_checker: LazyConfig.debug,
                      rebooter: Rebooter.new,
                      happy_exiter_class: HappyExiter,
-                     sad_exiter_class: SadExiter)
+                     sad_exiter_class: SadExiter,
+                     locker: MemoryLocker.new)
         @parser = parser
         @config_updater = config_updater
         @loader = loader
@@ -66,6 +68,7 @@ module CryptReboot
         @rebooter = rebooter
         @happy_exiter_class = happy_exiter_class
         @sad_exiter_class = sad_exiter_class
+        @locker = locker
       end
       # rubocop:enable Metrics/ParameterLists
     end

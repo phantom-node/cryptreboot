@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'tty-command', '~> 0.10'
   spec.add_dependency 'tty-option', '~> 0.3'
+  spec.add_dependency 'ffi', '>= 1.0.0'
 end

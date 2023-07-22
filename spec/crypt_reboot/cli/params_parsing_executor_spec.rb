@@ -6,16 +6,23 @@ module CryptReboot
       subject(:executor) do
         described_class.new(
           loader: loader,
+          locker: locker,
           debug_checker: -> { config.debug },
           config_updater: config.method(:update!)
         )
       end
 
       let(:config) { InstantiableConfig.new }
+      let(:locker) { spy }
 
       context 'when no real work will be done' do
         let(:loader) do
           -> { raise ZeroDivisionError, 'Loading failed' }
+        end
+
+        it 'locks memory' do
+          executor.call(['-v'])
+          expect(locker).to have_received(:call)
         end
 
         it 'returns help' do
