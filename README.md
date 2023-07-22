@@ -53,7 +53,7 @@ You need to ensure those are installed:
 If you use recent, mainstream Linux distribution, other requirements are
 probably already met:
 - `kexec` support in the kernel
-- `tmpfs` filesystem support in kernel
+- `ramfs` filesystem support in kernel
 - `cryptsetup` (if you use disk encryption, it should be installed)
 - `systemd` or another way to guarantee staged kernel is executed on reboot
 - `strace` (not required if `--skip-lz4-check` flag is specified)

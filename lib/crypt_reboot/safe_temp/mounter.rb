@@ -2,7 +2,9 @@
 
 module CryptReboot
   module SafeTemp
-    # Mount tmpfs at the given mount point, yield and unmount
+    # Mount ramfs at the given mount point, yield and unmount.
+    # We don't want the contents of directory to be swapped,
+    # therefore ramfs is used instead of tmpfs.
     class Mounter
       def call(dir, &block)
         mounter.call(dir)
@@ -21,7 +23,7 @@ module CryptReboot
 
       def initialize(runner: Runner::NoResult.new,
                      mounter: lambda { |dir|
-                                runner.call(Config.mount_path, '-t', 'tmpfs', '-o', 'mode=700', 'none', dir)
+                                runner.call(Config.mount_path, '-t', 'ramfs', '-o', 'mode=700', 'none', dir)
                               },
                      umounter: ->(dir) { runner.call(Config.umount_path, dir) })
         @runner = runner

@@ -4,7 +4,7 @@ require 'tmpdir'
 
 module CryptReboot
   module SafeTemp
-    # Create temporary directory, mounts tmpfs and yields tmp dir location.
+    # Create temporary directory, mounts ramfs and yields tmp dir location.
     # Make sure to cleanup afterwards.
     class Directory
       def call
