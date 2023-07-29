@@ -71,6 +71,10 @@ Make sure the required software is installed, then install the gem system-wide b
 
     $ sudo gem install crypt_reboot
 
+To upgrade run:
+
+    $ sudo gem update crypt_reboot
+
 ## Usage
 
 Cryptreboot performs operations normally only available to the root user,
