@@ -65,6 +65,14 @@ If you use Debian-based distribution, use this command to install required packa
 When asked if kexec should handle reboots, answer `yes` (however the answer probably
 doesn't matter for cryptreboot to work).
 
+## Recommendations
+
+To protects against saving sensitive data (passphrase, encryption keys) to swap space on a disk, it is recommended to use `memory_locker` ([Rubygems](https://rubygems.org/gems/memory_locker), [Github](https://github.com/phantom-node/memory_locker)).
+
+    $ sudo gem install memory_locker
+
+If you don't want to install it, you will have to specify `--insecure-memory` flag when running cryptreboot.
+
 ## Installation
 
 Make sure the required software is installed, then install the gem system-wide by executing:
@@ -88,7 +96,7 @@ To see the usage, run:
 
     $ cryptreboot --help
 
-## Resolutions for common issues
+## Troubleshooting
 
 ### LZ4 initramfs compression
 
@@ -144,9 +152,9 @@ To cancel the change, remove the file:
 
     $ sudo rm /etc/systemd/system/systemd-kexec.service.d/override.conf
 
-### No symlinks to most recent kernel and initramfs
+### No symlinks to the most recent kernel and initramfs
 
-By default cryptreboot looks for kernel in `/boot/vmlinuz` and for initramfs
+By default, cryptreboot looks for kernel in `/boot/vmlinuz` and for initramfs
 in `/boot/initrd.img`. If those files are missing in your Linux distribution,
 cryptreboot will fail, unless you use `--kernel` and `--initramfs` command line
 options.
@@ -163,6 +171,20 @@ the currently running kernel and initramfs:
 Unfortunately, you need to rerun it after each kernel upgrade, otherwise,
 cryptreboot is going to boot the old kernel.
 Upcoming versions of cryptreboot will offer better solutions.
+
+### Problems with memory locking
+
+If you get:
+
+> Locking error: Failed to lock memory
+
+it means there was an error while locking memory to prevent a risk of sensitive data ending in a swap space.
+
+The best solution is to install `memory_locker` (see [requirements](#requirements) section).
+If it still doesn't help, make sure you have permission to lock memory. Root users do.
+If the problem persists, then please report a bug describing your setup.
+
+The solution of last resort is to use `--insecure-memory` flag, which disables memory locking completely.
 
 ## Development
 
