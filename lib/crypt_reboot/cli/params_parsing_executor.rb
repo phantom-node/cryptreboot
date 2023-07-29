@@ -5,7 +5,6 @@ module CryptReboot
     # Interprets parameters, executes everything and returns callable object
     class ParamsParsingExecutor
       def call(raw_params)
-        locker.call
         params = parser.call(raw_params)
         handle_action_params!(params) or configure_and_exec(params)
       rescue StandardError, Interrupt => e
@@ -22,6 +21,7 @@ module CryptReboot
 
       def configure_and_exec(params)
         config_updater.call(**params)
+        locker.call
         loader.call
         rebooter
       end
@@ -58,7 +58,7 @@ module CryptReboot
                      rebooter: Rebooter.new,
                      happy_exiter_class: HappyExiter,
                      sad_exiter_class: SadExiter,
-                     locker: MemoryLocker.new)
+                     locker: ElasticMemoryLocker.new)
         @parser = parser
         @config_updater = config_updater
         @loader = loader

@@ -90,6 +90,12 @@ module CryptReboot
                'algorithm to a more robust one.'
         end
 
+        flag :insecure_memory do
+          short '-s'
+          long '--insecure-memory'
+          desc 'Do not lock memory. WARNING: there is a risk your secrets will leak to swap.'
+        end
+
         flag :debug do
           short '-d'
           long '--debug'

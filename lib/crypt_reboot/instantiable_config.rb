@@ -8,7 +8,7 @@ module CryptReboot
     attr_reader :initramfs, :cmdline, :kernel, :patch_save_path, :cat_path, :cpio_path,
                 :unmkinitramfs_path, :kexec_path, :cryptsetup_path, :reboot_path,
                 :mount_path, :umount_path, :strace_path, :grep_path,
-                :debug, :prepare_only, :skip_lz4_check
+                :debug, :prepare_only, :skip_lz4_check, :insecure_memory
 
     def update!(**settings)
       settings.each do |name, value|
@@ -25,6 +25,7 @@ module CryptReboot
     end
 
     # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/AbcSize
     def initialize
       # Options
       @initramfs = '/boot/initrd.img'
@@ -46,7 +47,9 @@ module CryptReboot
       @debug = false
       @prepare_only = false
       @skip_lz4_check = false
+      @insecure_memory = false
     end
+    # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength
   end
 end

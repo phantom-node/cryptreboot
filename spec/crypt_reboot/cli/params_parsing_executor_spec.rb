@@ -20,9 +20,14 @@ module CryptReboot
           -> { raise ZeroDivisionError, 'Loading failed' }
         end
 
-        it 'locks memory' do
-          executor.call(['-v'])
+        it 'locks memory before doing real work' do
+          executor.call([])
           expect(locker).to have_received(:call)
+        end
+
+        it 'does not lock memory if version number requested' do
+          executor.call(['-v'])
+          expect(locker).not_to have_received(:call)
         end
 
         it 'returns help' do
