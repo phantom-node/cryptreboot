@@ -36,7 +36,8 @@ Following distributions were tested by the author on the AMD64 machine:
 - Ubuntu 22.04 LTS
 - Ubuntu 20.04 LTS needs tiny adjustments to system settings,
   specifically [changing compression](#lz4-initramfs-compression) and
-  [fixing systemd kexec support](#staged-kernel-not-being-executed-by-systemd)
+  [fixing systemd kexec support](#staged-kernel-not-being-executed-by-systemd), but still
+  [sometimes](#unable-to-kexec-on-reboot-using-old-systemd) reboot experience may be suboptimal
 - ~~Ubuntu 18.04 LTS~~ is not supported (initramfs uses *pre-crypttab* format)
 
 If you have successfully run cryptreboot on another distribution,
@@ -185,6 +186,29 @@ If it still doesn't help, make sure you have permission to lock memory. Root use
 If the problem persists, then please report a bug describing your setup.
 
 The solution of last resort is to use `--insecure-memory` flag, which disables memory locking completely.
+
+### Unable to kexec on reboot using old systemd
+
+Ubuntu 20.04 ships with `systemd` which may fall back to standard reboot instead of using `kexec`, because this utility
+is located on a filesystem being unmounted during the shutdown sequence.
+
+As a result, using cryptreboot would feel like using normal reboot.
+
+To tell if your system is affected, you have to check messages printed to the console after you run cryptreboot.
+This message happens just before reboot, so you will have just a few milliseconds to notice it on screen:
+
+> shutdown[1]: (sd-kexec) failed with exit status 1
+
+[There is a fix](https://bugs.launchpad.net/ubuntu/+source/systemd/+bug/1969365) waiting to be included in
+a stable release update to `systemd` since 2023-07-21.
+
+In the meantime, as a workaround, you can use `kexec` directly. **Warning: it will skip the standard shutdown procedure. Filesystems won't be unmounted, services won't be stopped, etc. It is like hitting `reset` button**.
+However, when you use a decent filesystem with journalling the risk of things going bad should not be high.
+
+Given the above warning, to reboot skipping the shutdown procedure, run:
+
+    $ sudo cryptreboot -p
+    $ sudo kexec -e # will skip proper shutdown sequence
 
 ## Development
 
