@@ -19,6 +19,8 @@ and `/boot/initrd.img` as initramfs.
 Will work properly when using standard passphrase-based disk unlocking.
 Fancy methods such as using an external USB with a passphrase file will fail.
 
+You will find more details in [this blog post](https://blog.pawelpokrywka.com/p/rebooting-linux-with-encrypted-disk).
+
 ## Compatible Linux distributions
 
 Currently, cryptreboot depends on `initramfs-tools` package which is available in
