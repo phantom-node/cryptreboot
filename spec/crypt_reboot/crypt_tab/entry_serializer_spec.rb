@@ -6,17 +6,17 @@ module CryptReboot
       subject(:serializer) { described_class.new }
 
       let :entry do
-        Entry.new({
-                    target: 'cryptswap',
-                    source: 'UUID=946d9327-0de2-4d7b-adba-28a079131b4c',
-                    key_file: '/dev/urandom',
-                    options: {
-                      'offset' => '1024',
-                      'cipher' => 'aes-xts-plain64',
-                      'size' => '512'
-                    },
-                    flags: %w[swap plain]
-                  })
+        Entry.new(
+          target: 'cryptswap',
+          source: 'UUID=946d9327-0de2-4d7b-adba-28a079131b4c',
+          key_file: '/dev/urandom',
+          options: {
+            'offset' => '1024',
+            'cipher' => 'aes-xts-plain64',
+            'size' => '512'
+          },
+          flags: %w[swap plain]
+        )
       end
 
       let :expected_result do
