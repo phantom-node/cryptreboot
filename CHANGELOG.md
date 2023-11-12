@@ -1,3 +1,7 @@
+## [0.2.1] - 2023-11-12
+
+- use new MemoryLocker without a need for FFI compilation step
+
 ## [0.2.0] - 2023-07-29
 
 - Make memory locking optional with `--insecure-memory` command line option
