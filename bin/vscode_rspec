@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# To force VS Code to use rake task for running tests use following as an "RSpec Command":
+# bin/vscode_rspec
+
+opts = ARGV.join(" ")
+system %{SPEC_OPTS="#{opts}" bundle exec rake spec}
