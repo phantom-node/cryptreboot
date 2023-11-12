@@ -4,6 +4,7 @@ require 'bundler/setup'
 require 'crypt_reboot'
 
 CryptReboot::Config.update!(debug: true)
+MemoryLocker = -> {} # memory locking is not required for testing
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

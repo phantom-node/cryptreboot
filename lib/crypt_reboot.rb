@@ -7,7 +7,6 @@ rescue LoadError => e
 
   require 'zeitwerk'
   loader = Zeitwerk::Loader.for_gem
-  loader.ignore("#{__dir__}/memory_locker.rb") # stub has to be loaded manually
   loader.setup
 end
 

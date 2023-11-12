@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'memory_locker' unless defined? MemoryLocker # MemoryLocker is mocked in tests
+
 module CryptReboot
   # Try to lock memory if configuration allows it
   class ElasticMemoryLocker
@@ -8,10 +10,9 @@ module CryptReboot
     def call
       return if skip_locking?
 
-      loader.call
       locker.call
       nil
-    rescue load_error, locking_error => e
+    rescue locking_error => e
       raise LockingError, 'Failed to lock memory', cause: e
     end
 
@@ -21,22 +22,14 @@ module CryptReboot
       insecure_memory_checker.call
     end
 
-    def locking_error
-      lazy_locking_error.call
-    end
-
-    attr_reader :insecure_memory_checker, :loader, :load_error, :locker, :lazy_locking_error
+    attr_reader :insecure_memory_checker, :locker, :locking_error
 
     def initialize(insecure_memory_checker: LazyConfig.insecure_memory,
-                   loader: -> { require 'memory_locker' },
-                   load_error: LoadError,
-                   locker: -> { MemoryLocker.call },
-                   lazy_locking_error: -> { MemoryLocker::Error })
+                   locker: MemoryLocker,
+                   locking_error: MemoryLocker::Error)
       @insecure_memory_checker = insecure_memory_checker
-      @loader = loader
-      @load_error = load_error
       @locker = locker
-      @lazy_locking_error = lazy_locking_error
+      @locking_error = locking_error
     end
   end
 end

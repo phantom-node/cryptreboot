@@ -24,7 +24,6 @@ Gem::Specification.new do |spec|
       f.match(%r{\A(?:lib|exe)/})
     end
   end
-  spec.files -= ['lib/memory_locker.rb'] # do not include stub meant for development & testing
 
   spec.bindir = 'exe'
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
@@ -32,4 +31,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'tty-command', '~> 0.10'
   spec.add_dependency 'tty-option', '~> 0.3'
+  spec.add_dependency 'memory_locker', '~> 1.0.3'
 end
