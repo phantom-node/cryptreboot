@@ -67,14 +67,6 @@ If you use Debian-based distribution, use this command to install required packa
 When asked if kexec should handle reboots, answer `yes` (however the answer probably
 doesn't matter for cryptreboot to work).
 
-## Recommendations
-
-To protects against saving sensitive data (passphrase, encryption keys) to swap space on a disk, it is recommended to use `memory_locker` ([Rubygems](https://rubygems.org/gems/memory_locker), [Github](https://github.com/phantom-node/memory_locker)).
-
-    $ sudo gem install memory_locker
-
-If you don't want to install it, you will have to specify `--insecure-memory` flag when running cryptreboot.
-
 ## Installation
 
 Make sure the required software is installed, then install the gem system-wide by executing:
@@ -182,9 +174,8 @@ If you get:
 
 it means there was an error while locking memory to prevent a risk of sensitive data ending in a swap space.
 
-The best solution is to install `memory_locker` (see [requirements](#requirements) section).
-If it still doesn't help, make sure you have permission to lock memory. Root users do.
-If the problem persists, then please report a bug describing your setup.
+Make sure you have permission to lock memory. Root users have.
+If permissions are ok, then please report a bug describing your setup.
 
 The solution of last resort is to use `--insecure-memory` flag, which disables memory locking completely.
 
