@@ -1,3 +1,8 @@
+## [0.2.0] - 2023-07-29
+
+- Make memory locking optional with `--insecure-memory` command line option
+- Remove FFI gem dependency
+
 ## [0.1.2] - 2023-07-22
 
 - Lock memory to prevent secrets leaking to swap
