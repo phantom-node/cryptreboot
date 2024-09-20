@@ -44,6 +44,12 @@ Following distributions were tested by the author on the AMD64 machine:
 If you have successfully run cryptreboot on another distribution,
 please contact me and I will update the list.
 
+## Disk encryption method
+
+Currently, only LUKS-based disk-encryption is supported.
+If you use ZFS native encryption, cryptreboot will [downgrade](https://github.com/phantom-node/cryptreboot/issues/2)
+to standard reboot (using kexec).
+
 ## Requirements
 
 You need to ensure those are installed:
