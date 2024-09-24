@@ -30,6 +30,11 @@ module CryptReboot
         result = deserializer.call(content: crypttab_content)
         expect(result).to eq(expected_result)
       end
+
+      it 'returns empty array for non-existing file' do
+        result = deserializer.call('non-existing-file-abc123')
+        expect(result).to eq([])
+      end
     end
   end
 end

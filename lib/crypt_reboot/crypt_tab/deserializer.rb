@@ -4,13 +4,19 @@ module CryptReboot
   module CryptTab
     # Load crypttab file and return array with deserialized entries
     class Deserializer
-      def call(filename = nil, content: File.read(filename))
+      def call(filename = nil, content: read_tolerate_missing(filename))
         split_to_important_lines(content).map do |line|
           entry_deserializer.call line
         end
       end
 
       private
+
+      def read_tolerate_missing(filename)
+        File.read(filename)
+      rescue Errno::ENOENT
+        ''
+      end
 
       def split_to_important_lines(content)
         content.split(/\n+|\r+/)
