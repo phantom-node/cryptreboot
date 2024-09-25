@@ -4,7 +4,8 @@ module CryptReboot
   RSpec.describe InitramfsPatchSqueezer do
     subject(:squeezer) do
       described_class.new(
-        extractor: ->(_, &b) { b.call('./spec/fixtures/extracted_initramfs/main') }
+        extractor: ->(_, &b) { b.call('./spec/fixtures/extracted_initramfs/main') },
+        zfs_keystore_entries_generator: -> { {} }
       )
     end
 
