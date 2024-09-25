@@ -12,7 +12,11 @@ module CryptReboot
       let(:logger) { spy }
 
       let :fake_decompressor do
-        ->(_initramfs, dir) { File.open(test_file_path(dir), 'w') { 0 } }
+        lambda { |_initramfs, dir|
+          dir = File.join(dir, 'main')
+          Dir.mkdir(dir)
+          File.open(test_file_path(dir), 'w') { 0 }
+        }
       end
 
       def test_file_path(dir)

@@ -49,7 +49,7 @@ module CryptReboot
       end
 
       it 'generates files hash' do
-        files = generator.call(crypttab, '/ignored')
+        files = generator.call(crypttab, base_dir: '/ignored', crypttab_path: '/cryptroot/crypttab')
         expect(files).to eq(expected_files)
       end
     end
@@ -71,7 +71,7 @@ module CryptReboot
       end
 
       it 'generates files hash' do
-        files = generator.call(crypttab, '/ignored')
+        files = generator.call(crypttab, base_dir: '/ignored', crypttab_path: '/cryptroot/crypttab')
         expect(files).to eq(expected_files)
       end
     end
@@ -92,7 +92,7 @@ module CryptReboot
       end
 
       it 'generates files hash' do
-        files = generator.call(crypttab, '/ignored')
+        files = generator.call(crypttab, base_dir: '/ignored', crypttab_path: '/cryptroot/crypttab')
         expect(files).to eq(expected_files)
       end
     end
@@ -112,7 +112,7 @@ module CryptReboot
       end
 
       it 'generates files hash' do
-        files = generator.call(crypttab, '/my/base/dir')
+        files = generator.call(crypttab, base_dir: '/my/base/dir', crypttab_path: '/cryptroot/crypttab')
         expect(files).to eq(expected_files)
       end
     end
