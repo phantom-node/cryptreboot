@@ -1,6 +1,10 @@
+## [0.3.0.beta.1] - 2024-09-26
+
+- Add preliminary support for LUKS-keystore-based ZFS encryption implemented by Ubuntu
+
 ## [0.2.1] - 2023-11-12
 
-- use new MemoryLocker without a need for FFI compilation step
+- Use new MemoryLocker without a need for FFI compilation step
 
 ## [0.2.0] - 2023-07-29
 
