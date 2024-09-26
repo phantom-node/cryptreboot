@@ -20,7 +20,7 @@ module CryptReboot
       def generate_entry(path)
         pool = File.basename File.dirname(path)
         target = "keystore-#{pool}"
-        entry_class.new target: target, source: path, key_file: 'none', options: {}, flags: %w[luks discard]
+        entry_class.new target: target, source: path, key_file: 'none', options: {}, flags: %i[luks discard]
       end
 
       attr_reader :zvol_dir, :entry_class

@@ -22,7 +22,7 @@ module CryptReboot
       return {} if crypttab_entries.empty?
       files = files_generator.call(crypttab_entries, base_dir: tmp_dir, crypttab_path: zfs_crypttab_path)
       script_path = File.join(tmp_dir, zfs_script_path)
-      script = File.read(script)
+      script = File.read(script_path)
       files.merge(zfs_script_path => patch_zfs_script(script))
     end
 
