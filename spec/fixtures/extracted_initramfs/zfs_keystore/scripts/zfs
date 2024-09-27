@@ -1,0 +1,5 @@
+# Simplified ZFS boot script
+CRYPTROOT=/scripts/local-top/cryptroot
+if [ true ]
+  ${CRYPTROOT}
+fi

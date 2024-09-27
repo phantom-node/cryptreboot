@@ -19,15 +19,23 @@ module CryptReboot
 
       def generate_entry(path)
         pool = File.basename File.dirname(path)
-        target = "keystore-#{pool}"
-        entry_class.new target: target, source: path, key_file: 'none', options: {}, flags: %i[luks discard]
+        # Target name is the same as produced by /scripts/zfs script within initramfs
+        entry_builder.call target: "keystore-#{pool}", source: path
       end
 
-      attr_reader :zvol_dir, :entry_class
+      attr_reader :zvol_dir, :entry_builder
 
-      def initialize(zvol_dir: '/dev/zvol', entry_class: Entry)
+      def initialize(zvol_dir: '/dev/zvol',
+                     entry_builder: lambda { |target:, source:|
+                       # Flags and options are the same as produced by /scripts/zfs script within initramfs
+                       Entry.new target: target,
+                                 source: source,
+                                 key_file: 'none',
+                                 options: {},
+                                 flags: %i[luks discard]
+                     })
         @zvol_dir = zvol_dir
-        @entry_class = entry_class
+        @entry_builder = entry_builder
       end
     end
   end
