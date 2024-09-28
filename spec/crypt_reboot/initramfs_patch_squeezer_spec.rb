@@ -4,19 +4,22 @@ module CryptReboot
   RSpec.describe InitramfsPatchSqueezer do
     subject(:squeezer) do
       described_class.new(
-        extractor: ->(_, &b) { b.call('./spec/fixtures/extracted_initramfs') }
+        extractor: ->(_, &b) { b.call('dir_with_unpacked_initramfs') },
+        patchers: [
+          ->(_) { { 'file1' => 'content1' } },
+          ->(_) { { 'file2' => 'content2' } }
+        ]
       )
     end
 
     let :expected_patch do
       {
-        '/cryptroot/crypttab' => "# This file has been patched by cryptreboot\n" \
-                                 'cryptswap /dev/null /dev/urandom ' \
-                                 "swap,plain,offset=1024,cipher=aes-xts-plain64,size=512\n"
+        'file1' => 'content1',
+        'file2' => 'content2'
       }
     end
 
-    it 'squeezes initramfs into a patch' do
+    it do
       patch = squeezer.call(double)
       expect(patch).to eq(expected_patch)
     end

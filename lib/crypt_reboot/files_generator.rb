@@ -3,7 +3,7 @@
 module CryptReboot
   # Generate a hash with file names as keys and file contents as values
   class FilesGenerator
-    def call(entries, base_dir)
+    def call(entries, base_dir:, crypttab_path:)
       files = {}
       modified_entries = entries.map do |entry|
         next entry unless luks?(entry, base_dir)
@@ -13,13 +13,10 @@ module CryptReboot
         files[keyfile] = data.key
         entry_converter.call(entry, data, keyfile)
       end
-      files.merge(CRYPTAB_PATH => serializer.call(modified_entries))
+      files.merge(crypttab_path => serializer.call(modified_entries))
     end
 
     private
-
-    CRYPTAB_PATH = '/cryptroot/crypttab'
-    private_constant :CRYPTAB_PATH
 
     def luks?(entry, base_dir)
       headevice = entry.headevice(header_prefix: base_dir)

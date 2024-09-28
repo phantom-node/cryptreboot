@@ -20,6 +20,14 @@ and `/boot/initrd.img` as initramfs.
 Will work properly when using standard passphrase-based disk unlocking.
 Fancy methods such as using an external USB with a passphrase file will fail.
 
+## Supported disk encryption methods
+
+### LUKS crypttab
+LUKS-based disk-encryption configured with `/etc/crypttab` file.
+
+### ZFS keystore
+Native ZFS encryption with LUKS-encrypted keystore volume.
+
 ## Compatible Linux distributions
 
 Currently, cryptreboot depends on `initramfs-tools` package which is available in
@@ -30,25 +38,26 @@ On the other hand, do not expect it to work on other distributions now.
 But support for them may come in upcoming versions.
 
 Following distributions were tested by the author on the AMD64 machine:
-- DappNode 0.2.75 is based on Debian 12, see below
-- Debian 12 needs [symlinks for kernel and initramfs](#no-symlinks-to-most-recent-kernel-and-initramfs)
-- Pop!_OS 22.04 LTS
-- Ubuntu 23.04
-- Ubuntu 22.04 LTS
-- Ubuntu 20.04 LTS needs tiny adjustments to system settings,
-  specifically [changing compression](#lz4-initramfs-compression) and
-  [fixing systemd kexec support](#staged-kernel-not-being-executed-by-systemd), but still
-  [sometimes](#unable-to-kexec-on-reboot-using-old-systemd) reboot experience may be suboptimal
-- ~~Ubuntu 18.04 LTS~~ is not supported (initramfs uses *pre-crypttab* format)
+
+- LUKS crypttab disk encryption method
+  - DappNode 0.2.75 is based on Debian 12, see below
+  - Debian 12 needs [symlinks for kernel and initramfs](#no-symlinks-to-most-recent-kernel-and-initramfs)
+  - Pop!_OS 22.04 LTS
+  - Ubuntu 24.04 LTS
+  - Ubuntu 23.04
+  - Ubuntu 22.04 LTS
+  - Ubuntu 20.04 LTS needs tiny adjustments to system settings,
+    specifically [changing compression](#lz4-initramfs-compression) and
+    [fixing systemd kexec support](#staged-kernel-not-being-executed-by-systemd), but still
+    [sometimes](#unable-to-kexec-on-reboot-using-old-systemd) reboot experience may be suboptimal
+  - ~~Ubuntu 18.04 LTS~~ is not supported (initramfs uses *pre-crypttab* format)
+
+- ZFS keystore disk encryption method
+  - Ubuntu 24.04 LTS
+  - Ubuntu 22.04 LTS
 
 If you have successfully run cryptreboot on another distribution,
 please contact me and I will update the list.
-
-## Disk encryption method
-
-Currently, only LUKS-based disk-encryption is supported.
-If you use ZFS native encryption, cryptreboot will [downgrade](https://github.com/phantom-node/cryptreboot/issues/2)
-to standard reboot (using kexec).
 
 ## Requirements
 
