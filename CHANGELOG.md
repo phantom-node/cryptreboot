@@ -1,3 +1,7 @@
+## [0.3.0] - 2024-09-27
+
+- Refactor ZFS keystore encryption support
+
 ## [0.3.0.beta.1] - 2024-09-26
 
 - Add preliminary support for LUKS-keystore-based ZFS encryption implemented by Ubuntu
