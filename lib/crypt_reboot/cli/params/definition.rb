@@ -99,7 +99,8 @@ module CryptReboot
         flag :debug do
           short '-d'
           long '--debug'
-          desc 'Print debug messages'
+          desc 'Print debug messages. WARNING: they may contain secrets, ' \
+               'please exercise caution when sharing them.'
         end
 
         option :patch_save_path do
