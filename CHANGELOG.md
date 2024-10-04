@@ -1,3 +1,7 @@
+## [0.3.1] - 2024-10-04
+
+- Add a warning about usage of --debug flag
+
 ## [0.3.0] - 2024-09-27
 
 - Refactor ZFS keystore encryption support
