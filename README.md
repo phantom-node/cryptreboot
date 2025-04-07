@@ -8,7 +8,7 @@ Convenient reboot for Linux systems with encrypted root partition.
 
 It asks for a passphrase and reboots the system afterward, automatically
 unlocking the drive on startup using
-[in-memory initramfs patching and kexec](https://blog.pawelpokrywka.com/p/rebooting-linux-with-encrypted-disk).
+[in-memory initramfs patching and kexec](https://www.pawelpokrywka.com/p/rebooting-linux-with-encrypted-disk).
 Without explicit consent, no secrets are stored on disk, even temporarily.
 
 Useful when unlocking the drive at startup is difficult, such as on headless
@@ -242,7 +242,7 @@ and contributors are expected to adhere to the
 My name is Paweł Pokrywka and I'm the author of cryptreboot.
 
 If you want to contact me or get to know me better, check out
-[my blog](https://blog.pawelpokrywka.com).
+[my blog](https://www.pawelpokrywka.com).
 
 Thank you for your interest in this project :)
 
