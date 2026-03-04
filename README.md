@@ -41,7 +41,7 @@ Following distributions were tested by the author on the AMD64 machine:
 
 - LUKS crypttab disk encryption method
   - DappNode 0.2.75 is based on Debian 12, see below
-  - Debian 12 needs [symlinks for kernel and initramfs](#no-symlinks-to-most-recent-kernel-and-initramfs)
+  - Debian 12 & 13 needs [symlinks for kernel and initramfs](#no-symlinks-to-most-recent-kernel-and-initramfs)
   - Pop!_OS 22.04 LTS
   - Ubuntu 24.04 LTS
   - Ubuntu 23.04
@@ -165,21 +165,19 @@ To cancel the change, remove the file:
 
 By default, cryptreboot looks for kernel in `/boot/vmlinuz` and for initramfs
 in `/boot/initrd.img`. If those files are missing in your Linux distribution,
-cryptreboot will fail, unless you use `--kernel` and `--initramfs` command line
-options.
+cryptreboot will fail with the following error message:
+
+> Enoent: No such file or directory @ dir_chdir0 - /tmp/dXXXXXXXX-XXXX-xxxxxx/files
+
+You can tell cryptreboot where to find kernel and initramfs by specifying `--kernel` and `--initramfs` command line options:
 
     $ sudo cryptreboot --kernel /boot/vmlinuz-`uname -r` --initramfs /boot/initrd.img-`uname -r`
 
-If you don't want to specify options every time you reboot, add symlinks to
-the currently running kernel and initramfs:
+If you don't want to specify options every time you reboot, configure your system to automatically
+set the symlinks to the most recent kernel and initramfs after each kernel upgrade by setting
+`link_in_boot` to `yes` in `/etc/kernel-img.conf`. Then generate the links by issuing:
 
-    $ cd /boot
-    $ sudo ln -sf vmlinuz-`uname -r` vmlinuz
-    $ sudo ln -sf initrd.img-`uname -r` initrd.img
-
-Unfortunately, you need to rerun it after each kernel upgrade, otherwise,
-cryptreboot is going to boot the old kernel.
-Upcoming versions of cryptreboot will offer better solutions.
+    $ sudo dpkg-reconfigure linux-image-$(uname -r)
 
 ### Problems with memory locking
 
