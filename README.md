@@ -41,7 +41,7 @@ Following distributions were tested by the author on the AMD64 machine:
 
 - LUKS crypttab disk encryption method
   - DappNode 0.2.75 is based on Debian 12, see below
-  - Debian 12 & 13 needs [symlinks for kernel and initramfs](#no-symlinks-to-most-recent-kernel-and-initramfs)
+  - Debian 12 & 13 needs [symlinks for kernel and initramfs](#no-symlinks-to-the-most-recent-kernel-and-initramfs)
   - Pop!_OS 22.04 LTS
   - Ubuntu 24.04 LTS
   - Ubuntu 23.04
